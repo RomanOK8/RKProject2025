@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".Pausemenu">
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="690dp"
+        android:layout_height="378dp"
+        app:srcCompat="@drawable/pausedgamemenu"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageButton
+        android:id="@+id/settingsbt"
+        android:layout_width="92dp"
+        android:layout_height="85dp"
+        android:onClick="setting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.286"
+        app:srcCompat="@drawable/settingsbutton" />
+
+    <ImageButton
+        android:id="@+id/resumebutton"
+        android:layout_width="91dp"
+        android:layout_height="85dp"
+        android:onClick="bAck"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.284"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <ImageButton
+        android:id="@+id/exbt23"
+        android:layout_width="87dp"
+        android:layout_height="82dp"
+        android:onClick="end2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.281"
+        app:srcCompat="@drawable/exit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

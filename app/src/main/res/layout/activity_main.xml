@@ -6,13 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        app:srcCompat="@drawable/menu1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageButton
+        android:id="@+id/exbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/exit"
+        tools:layout_editor_absoluteX="17dp"
+        tools:srcCompat="@drawable/exit" />
+
+    <ImageButton
+        android:id="@+id/stbt"
+        android:layout_width="91dp"
+        android:layout_height="75dp"
+        android:onClick="startNewActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:srcCompat="@drawable/playbutton" />
+
+    <ImageButton
+        android:id="@+id/setbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startNewActivity2"
+        app:layout_constraintTop_toBottomOf="@+id/exbt"
+        app:srcCompat="@drawable/settingsbutton"
+        tools:layout_editor_absoluteX="17dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

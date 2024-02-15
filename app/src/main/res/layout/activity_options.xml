@@ -6,4 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".OptionsActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/optionsbackground"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageButton
+        android:id="@+id/bkbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startNewActivity"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@drawable/backbutton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startNewActivity2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bkbt"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/playbutton" />
+
+    <Button
+        android:id="@+id/Musicbutton23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:text="Play"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        tools:layout_editor_absoluteY="2dp" />
+
+    <SeekBar
+        android:id="@+id/voluemeSeekBar2"
+        android:layout_width="118dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Musicbutton23"
+        app:layout_constraintVertical_bias="0.032" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voluemeSeekBar2"
+        app:layout_constraintVertical_bias="0.017"
+        app:srcCompat="@drawable/music" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/exit"
+        tools:layout_editor_absoluteY="2dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

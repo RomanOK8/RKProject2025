@@ -13,8 +13,45 @@
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
         <activity
+            android:name=".Pausemenu"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".lvl5"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".lvl4"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".lvl3"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".lvl2"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".lvl1"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".areusure"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".OptionsActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
