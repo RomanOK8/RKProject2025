@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.ACCEPT_HANDOVER">
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -41,15 +43,15 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".OptionsActivity"
+            android:name=".Options"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".LevelMenu"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainMenu"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>

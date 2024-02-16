@@ -20,7 +20,7 @@ public class Pausemenu extends AppCompatActivity {
         mediaPlayera=MediaPlayer.create(this,R.raw.pauseandbacksound);
     }
     public void setting(View v){
-        Intent intent=new Intent(this, OptionsActivity.class);
+        Intent intent=new Intent(this, Options.class);
         startActivity(intent);
         mediaPlayers.start();
     }

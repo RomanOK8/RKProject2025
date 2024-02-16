@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity {
     MediaPlayer mediaPlayerm;
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayers;
@@ -21,14 +20,16 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayerm=MediaPlayer.create(this,R.raw.playbuttonsound);
         mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
         mediaPlayers=MediaPlayer.create(this,R.raw.settingsbuttonsound);
+        //LoopFW loopFW=new LoopFW();
+        //loopFW.startGame();
     }
     public void startNewActivity(View v){
-        Intent intent=new Intent(this,MainActivity2.class);
+        Intent intent=new Intent(this, LevelMenu.class);
         startActivity(intent);
         mediaPlayerm.start();
     }
     public void startNewActivity2(View v){
-        Intent intent=new Intent(this,OptionsActivity.class);
+        Intent intent=new Intent(this, Options.class);
         startActivity(intent);
         mediaPlayers.start();
     }

@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-public class MainActivity2 extends AppCompatActivity {
+public class LevelMenu extends AppCompatActivity {
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayerm;
     MediaPlayer mediaPlayers;
@@ -21,7 +20,7 @@ public class MainActivity2 extends AppCompatActivity {
         mediaPlayers=MediaPlayer.create(this,R.raw.settingsbuttonsound);
     }
     public void startNewActivity(View v){
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this, MainMenu.class);
         startActivity(intent);
         mediaPlayere.start();
     }
@@ -31,7 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
         mediaPlayere.start();
     }
     public void settings(View v){
-        Intent intent=new Intent(this, OptionsActivity.class);
+        Intent intent=new Intent(this, Options.class);
         startActivity(intent);
         mediaPlayers.start();
     }

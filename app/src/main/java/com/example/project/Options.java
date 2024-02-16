@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-public class OptionsActivity extends AppCompatActivity {
+public class Options extends AppCompatActivity {
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayer;
     MediaPlayer mediaPlayerm;
@@ -66,7 +66,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
     public void stop() {
         if (true) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
                 button.setText("Pause");
                 mediaPlayer.stop();
@@ -74,7 +74,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
     public void stop2() {
         if (true) {
-            Intent intent = new Intent(this, MainActivity2.class);
+            Intent intent = new Intent(this, LevelMenu.class);
             startActivity(intent);
             button.setText("Pause");
             mediaPlayer.stop();
@@ -88,13 +88,13 @@ public class OptionsActivity extends AppCompatActivity {
         }
     }
     public void startNewActivity(View v){
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this, MainMenu.class);
         startActivity(intent);
         stop();
         mediaPlayere.start();
     }
     public void startNewActivity2(View v){
-        Intent intent=new Intent(this,MainActivity2.class);
+        Intent intent=new Intent(this, LevelMenu.class);
         startActivity(intent);
         stop2();
         mediaPlayerm.start();

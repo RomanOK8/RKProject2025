@@ -21,7 +21,7 @@ public class areusure extends AppCompatActivity {
     }
     public void startNewActivity(View v){
         this.finishAffinity();
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this, MainMenu.class);
         startActivity(intent);
         mediaPlayere.start();
     }
