@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.my_framework.LoopFW;
+
 public class MainMenu extends AppCompatActivity {
     MediaPlayer mediaPlayerm;
     MediaPlayer mediaPlayere;
@@ -20,7 +22,7 @@ public class MainMenu extends AppCompatActivity {
         mediaPlayerm=MediaPlayer.create(this,R.raw.playbuttonsound);
         mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
         mediaPlayers=MediaPlayer.create(this,R.raw.settingsbuttonsound);
-        //LoopFW loopFW=new LoopFW();
+        // LoopFW loopFW=new LoopFW();
         //loopFW.startGame();
     }
     public void startNewActivity(View v){
