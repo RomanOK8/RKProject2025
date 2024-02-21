@@ -73,19 +73,15 @@ public class Options extends AppCompatActivity {
         }
     }
     public void stop2() {
-        if (true) {
-            Intent intent = new Intent(this, LevelMenu.class);
-            startActivity(intent);
-            button.setText("Pause");
-            mediaPlayer.stop();
-        }
+        Intent intent = new Intent(this, LevelMenu.class);
+        startActivity(intent);
+        button.setText("Pause");
+        mediaPlayer.stop();
     }public void stop3() {
-        if (true) {
-            Intent intent = new Intent(this, areusure.class);
-            startActivity(intent);
-            button.setText("Pause");
-            mediaPlayer.stop();
-        }
+        Intent intent = new Intent(this, areusure.class);
+        startActivity(intent);
+        button.setText("Pause");
+        mediaPlayer.stop();
     }
     public void startNewActivity(View v){
         Intent intent=new Intent(this, MainMenu.class);
