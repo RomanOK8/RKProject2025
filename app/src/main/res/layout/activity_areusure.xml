@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".areusure">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".areusure" >
+        <ImageView android:id="@+id/lol_play" android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="876dp"
-        android:layout_height="477dp"
-        app:srcCompat="@drawable/areusurebckgr"
-        tools:layout_editor_absoluteX="-102dp"
-        tools:layout_editor_absoluteY="-33dp" />
-
+    </RelativeLayout>
     <ImageButton
         android:id="@+id/bkbt3"
         android:layout_width="wrap_content"
