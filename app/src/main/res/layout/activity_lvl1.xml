@@ -16,32 +16,53 @@
         tools:context=".lvl1"
         tools:layout_editor_absoluteX="0dp">
 
+
+        <ImageView
+            android:id="@+id/obstacle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/obstacle"
+            android:visibility="invisible" />
+
+
+
         <ImageView
             android:id="@+id/swing_play"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/moveCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="0"
+            android:textColor="#FF5500"
+            android:textSize="20sp"
+            android:fontFamily="monospace"/>
 
         <ImageView
             android:id="@+id/CarImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="22dp"
+            android:layout_marginBottom="34dp"
             android:src="@drawable/starshipimage"
             app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/moveCounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="20sp"
-            android:textColor="#FF0000"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/score"
+            android:layout_width="71dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="290dp"
+            android:layout_marginEnd="18dp"
+            android:layout_toStartOf="@+id/moveCounter"
+            app:srcCompat="@drawable/score2" />
 
     </RelativeLayout>
 
