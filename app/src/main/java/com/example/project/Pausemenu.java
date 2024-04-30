@@ -11,6 +11,7 @@ public class Pausemenu extends AppCompatActivity {
     MediaPlayer mediaPlayers;
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayera;
+    private int moveCounter; // Переменная для сохранения счетчика перемещений
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,10 @@ public class Pausemenu extends AppCompatActivity {
         mediaPlayere.start();
     }
     public void bAck(View v){
-        Intent intent=new Intent(this, lvl1.class);
+        Intent intent = new Intent(this, lvl1.class);
+        intent.putExtra("moveCounter", getIntent().getIntExtra("moveCounter", 0)); // Передаем сохраненное значение счетчика
         startActivity(intent);
         mediaPlayera.start();
     }
+
 }
