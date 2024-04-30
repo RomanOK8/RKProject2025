@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,17 +21,14 @@ import java.util.Random;
 public class lvl1 extends AppCompatActivity {
     private MediaPlayer mediaPlayera;
     private MediaPlayer mediaPlayerud;
-    private MediaPlayer mediaPlayere;
     private ImageView carImage;
     private float screenHeight;
+    private TextView moveCounterTextView;
     private Handler moveCounterHandler;
     private TextView gameOverTextView;
     private Handler obstacleHandler;
     private Runnable createObstacleRunnable;
     private boolean isGameOver = false;
-    private int moveCounter = 0; // Счетчик перемещений
-    private TextView moveCounterTextView; // Текстовое поле для отображения счетчика
-    private Button retryButton; // Добавляем поле для кнопки Retry
 
 
     @Override
@@ -45,40 +41,13 @@ public class lvl1 extends AppCompatActivity {
         frameAnimation.start();
         initMediaPlayers();
         initViews();
-        moveCounterTextView = findViewById(R.id.moveCounter); // Инициализация текстового поля
-
-        // Проверяем наличие сохраненного значения счетчика в savedInstanceState
-        if (savedInstanceState != null) {
-            moveCounter = savedInstanceState.getInt("moveCounter", 0);
-            updateMoveCounter(moveCounter); // Обновляем счетчик на экране
-        }
-// Инициализируем кнопку Retry
-        retryButton = findViewById(R.id.retryButton);
-        // Скрываем кнопку Retry изначально
-        retryButton.setVisibility(View.GONE);
-        // Добавляем обработчик нажатия на кнопку Retry
-        retryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Перезапускаем уровень
-                restartLevel();
-            }
-        });
         startObstacleCreation();
         startMoveCounter();
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("moveCounter", moveCounter); // Сохраняем счетчик перемещений
-    }
-    private void updateMoveCounter(int moveCounter) {
-        moveCounterTextView.setText(String.valueOf(moveCounter));
-    }
+
     private void initMediaPlayers() {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
-        mediaPlayere=MediaPlayer.create(this,R.raw.crashsound);
     }
 
     private void initViews() {
@@ -105,6 +74,8 @@ public class lvl1 extends AppCompatActivity {
     private void startMoveCounter() {
         moveCounterHandler = new Handler();
         final Runnable moveCounterRunnable = new Runnable() {
+            private int moveCounter = 0;
+
             @Override
             public void run() {
                 moveCounter++;
@@ -162,27 +133,9 @@ public class lvl1 extends AppCompatActivity {
     private void checkCollisionWithObstacle(ImageView obstacle) {
         if (isColliding(carImage, obstacle)) {
             gameOver();
-            explodeAnimation(carImage); // Запускаем анимацию взрыва
         }
     }
-    private void explodeAnimation(ImageView view) {
-        // Загружаем анимацию взрыва
-        AnimationDrawable explodeAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.explosion_animation);
-        // Устанавливаем анимацию как фон для view
-        view.setBackground(explodeAnimation);
-        // Запускаем анимацию
-        explodeAnimation.start();
 
-        // Останавливаем анимацию через определенное время
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Сбрасываем фон, чтобы удалить анимацию
-                view.setBackground(null);
-            }
-        }, 2000); // Время, в течение которого анимация будет отображаться
-        mediaPlayere.start();
-    }
     private boolean isColliding(ImageView imageView1, ImageView imageView2) {
         Rect rect1 = new Rect();
         imageView1.getGlobalVisibleRect(rect1);
@@ -200,21 +153,15 @@ public class lvl1 extends AppCompatActivity {
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("Game Over");
-        moveCounter = 0; // Обнуляем счетчик при gameOver
-        // Показываем кнопку Retry
-        retryButton.setVisibility(View.VISIBLE);
     }
-    private void restartLevel() {
-        // Завершаем текущую активность и запускаем ее заново
-        finish();
-        startActivity(getIntent());
+    private void updateMoveCounter(int moveCounter) {
+        moveCounterTextView.setText(String.valueOf(moveCounter));
     }
 
     public void pauseButton(View v) {
         Intent intent = new Intent(this, Pausemenu.class);
-        intent.putExtra("moveCounter", moveCounter); // Сохраняем текущее значение счетчика
         startActivity(intent);
-
+        mediaPlayera.start();
     }
 
     public void upButton(View v) {
