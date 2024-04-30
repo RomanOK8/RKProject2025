@@ -8,8 +8,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.my_framework.LoopFW;
-
 public class MainMenu extends AppCompatActivity {
     MediaPlayer mediaPlayerm;
     MediaPlayer mediaPlayere;

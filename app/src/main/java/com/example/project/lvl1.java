@@ -87,8 +87,18 @@ public class lvl1 extends AppCompatActivity {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT); // Начальное положение препятствия справа
+
+        // Определяем верхнюю и нижнюю границы по y для генерации препятствия
+        int minY = 0; // Нижняя граница
+        int maxY = (int) (screenHeight - carImage.getHeight()); // Верхняя граница
+
+        // Генерируем случайное число в диапазоне от minY до maxY
+        Random random = new Random();
+        int randomYPosition = random.nextInt(maxY - minY) + minY;
+
+        // Устанавливаем случайную позицию по y
+        params.topMargin = randomYPosition;
         obstacle.setLayoutParams(params);
 
         // Добавляем препятствие на экран
