@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class lvl1 extends AppCompatActivity {
+    private MediaPlayer mediaPlayere;
     private MediaPlayer mediaPlayera;
     private MediaPlayer mediaPlayerud;
     private ImageView carImage;
@@ -28,6 +30,7 @@ public class lvl1 extends AppCompatActivity {
     private TextView gameOverTextView;
     private Handler obstacleHandler;
     private Runnable createObstacleRunnable;
+    private Button retryButton;
     private boolean isGameOver = false;
 
 
@@ -41,6 +44,17 @@ public class lvl1 extends AppCompatActivity {
         frameAnimation.start();
         initMediaPlayers();
         initViews();
+        retryButton = findViewById(R.id.retryButton);
+        // Скрываем кнопку Retry изначально
+        retryButton.setVisibility(View.GONE);
+        // Добавляем обработчик нажатия на кнопку Retry
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Перезапускаем уровень
+                restartLevel();
+            }
+        });
         startObstacleCreation();
         startMoveCounter();
     }
@@ -48,6 +62,7 @@ public class lvl1 extends AppCompatActivity {
     private void initMediaPlayers() {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
+        mediaPlayere=MediaPlayer.create(this, R.raw.crashsound);
     }
 
     private void initViews() {
@@ -133,8 +148,28 @@ public class lvl1 extends AppCompatActivity {
     private void checkCollisionWithObstacle(ImageView obstacle) {
         if (isColliding(carImage, obstacle)) {
             gameOver();
+            explodeAnimation(carImage);
+            mediaPlayere.start();
         }
     }
+    private void explodeAnimation(ImageView view) {
+        // Загружаем анимацию взрыва
+        AnimationDrawable explodeAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.explosion_animation);
+        // Устанавливаем анимацию как фон для view
+        view.setBackground(explodeAnimation);
+        // Запускаем анимацию
+        explodeAnimation.start();
+
+        // Останавливаем анимацию через определенное время
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Сбрасываем фон, чтобы удалить анимацию
+                view.setBackground(null);
+            }
+        }, 2000); // Время, в течение которого анимация будет отображаться
+    }
+
 
     private boolean isColliding(ImageView imageView1, ImageView imageView2) {
         Rect rect1 = new Rect();
@@ -153,6 +188,12 @@ public class lvl1 extends AppCompatActivity {
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("Game Over");
+        retryButton.setVisibility(View.VISIBLE);
+    }
+    private void restartLevel() {
+        // Завершаем текущую активность и запускаем ее заново
+        finish();
+        startActivity(getIntent());
     }
     private void updateMoveCounter(int moveCounter) {
         moveCounterTextView.setText(String.valueOf(moveCounter));

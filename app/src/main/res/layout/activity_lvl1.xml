@@ -59,7 +59,18 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:fontFamily="monospace"/>
-
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:background="#80000000"
+            android:fontFamily="monospace"
+            android:layout_below="@id/gameOverTextView"
+            android:layout_marginTop="24sp"
+            android:text="Retry"
+            android:visibility="gone" />
         <ImageView
             android:id="@+id/CarImage"
             android:layout_width="216dp"
