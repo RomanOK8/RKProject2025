@@ -33,7 +33,11 @@ public class lvl1 extends AppCompatActivity {
     private Button retryButton;
     private boolean isGameOver = false;
 
-
+    private int coinCounter = 0;
+    private TextView coinCounterTextView;
+    private ImageView coin;
+    private RelativeLayout relativeLayout;
+    private Handler coinGenerationHandler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,11 @@ public class lvl1 extends AppCompatActivity {
         frameAnimation.start();
         initMediaPlayers();
         initViews();
+        relativeLayout = findViewById(R.id.relativeLayout2);
+        coinCounterTextView = findViewById(R.id.coinCounterTextView);
+        coin=findViewById(R.id.coin1);
+        updateCoinCounter(coinCounter);
+
         retryButton = findViewById(R.id.retryButton);
         // Скрываем кнопку Retry изначально
         retryButton.setVisibility(View.GONE);
@@ -57,8 +66,26 @@ public class lvl1 extends AppCompatActivity {
         });
         startObstacleCreation();
         startMoveCounter();
+        startCoinCreation();
     }
-
+    private Runnable checkCollisionRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (coin != null) {
+                checkCollisionWithCoin(coin); // Проверяем столкновение
+            }
+            // Запланировать следующее выполнение через 10 миллисекунд
+            coinGenerationHandler.postDelayed(this, 10);
+        }
+    };
+    public void startCollisionCheck() {
+        // Запустить проверку столкновения с монеткой каждые 10 миллисекунд
+        coinGenerationHandler.postDelayed(checkCollisionRunnable, 10);
+    }
+    public void stopCollisionCheck() {
+        // Остановить проверку столкновения
+        coinGenerationHandler.removeCallbacks(checkCollisionRunnable);
+    }
     private void initMediaPlayers() {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
@@ -80,10 +107,10 @@ public class lvl1 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 3000);
+                obstacleHandler.postDelayed(this, 7000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 3000);
+        obstacleHandler.postDelayed(createObstacleRunnable, 7000);
     }
 
     private void startMoveCounter() {
@@ -185,6 +212,9 @@ public class lvl1 extends AppCompatActivity {
         if (moveCounterHandler != null) {
             moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
         }
+        if (coinGenerationHandler != null) {
+            coinGenerationHandler.removeCallbacksAndMessages(null); // Остановить генерацию монет
+        }
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("Game Over");
@@ -223,4 +253,69 @@ public class lvl1 extends AppCompatActivity {
     private boolean isWithinBounds(float newY) {
         return newY > 0 && newY < screenHeight - carImage.getHeight();
     }
+
+
+
+    private void startCoinCreation() {
+        Handler coinGenerationHandler = new Handler();
+        Runnable createCoinRunnable = new Runnable() {
+            @Override
+            public void run() {
+                createCoin();
+                coinGenerationHandler.postDelayed(this, 10000);
+            }
+        };
+        coinGenerationHandler.postDelayed(createCoinRunnable, 10000);
+    }
+
+    private void createCoin() {
+        coin = new ImageView(this);
+        coin.setImageResource(R.drawable.coin1);
+        RelativeLayout.LayoutParams params = createCoinLayoutParams();
+        coin.setLayoutParams(params);
+        relativeLayout.addView(coin); // Добавляем монету в relativeLayout
+        animateCoin(coin);
+        startCollisionCheck();
+    }
+
+
+
+    private RelativeLayout.LayoutParams createCoinLayoutParams() {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.topMargin = getRandomYPosition();
+        return params;
+    }
+    private void animateCoin(final ImageView coin) {
+        coin.animate()
+                .translationX(-relativeLayout.getWidth() - coin.getWidth()) // Устанавливаем конечную позицию за пределами экрана
+                .setDuration(3000)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(android.animation.Animator animation) {
+                        stopCollisionCheck();
+                        checkCollisionWithCoin(coin); // Проверяем столкновение при окончании анимации
+                    }
+                })
+                .start();
+    }
+
+    private void checkCollisionWithCoin(ImageView coin) {
+        if (isColliding(carImage, coin) && relativeLayout.indexOfChild(coin) != -1) {
+            incrementCoinCounter();
+            relativeLayout.removeView(coin); // Удаляем монету только при соприкосновении и если она еще существует в relativeLayout
+        }
+    }
+
+    private void incrementCoinCounter() {
+        coinCounter++;
+        updateCoinCounter(coinCounter);
+    }
+
+    private void updateCoinCounter(int coinCounter) {
+        coinCounterTextView.setText(String.valueOf(coinCounter));
+    }
+
 }

@@ -32,7 +32,6 @@ public class Pausemenu extends AppCompatActivity {
     }
     public void bAck(View v){
         Intent intent = new Intent(this, lvl1.class);
-        intent.putExtra("moveCounter", getIntent().getIntExtra("moveCounter", 0)); // Передаем сохраненное значение счетчика
         startActivity(intent);
         mediaPlayera.start();
     }
