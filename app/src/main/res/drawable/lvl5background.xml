@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
+    <item android:drawable="@drawable/lvl5b0" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b1" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b2" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b3" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b4" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b5" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b6" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b7" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b8" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b9" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b10" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b11" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b12" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b13" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b14" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b15" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b16" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b17" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b18" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b19" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b20" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b21" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b22" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b23" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b24" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b25" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b26" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b27" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b28" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b29" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b30" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b31" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b32" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b33" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b34" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b35" android:duration="50" />
+    <item android:drawable="@drawable/lvl5b36" android:duration="50" />
+</animation-list>
