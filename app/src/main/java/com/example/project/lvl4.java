@@ -17,8 +17,9 @@ public class lvl4 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lvl2);
         ImageView Img = (ImageView)findViewById(R.id.backgroundlvl2);
-        Img.setBackgroundResource(R.drawable.lvl2_background);
+        Img.setBackgroundResource(R.drawable.lvl4background);
         AnimationDrawable frameAnimation = (AnimationDrawable) Img.getBackground();
+        frameAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
         frameAnimation.start();
         initMediaPlayers();
     }
