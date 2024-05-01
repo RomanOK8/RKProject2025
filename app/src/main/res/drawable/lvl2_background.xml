@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
+    <item android:drawable="@drawable/lvl2city0" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city1" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city2" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city3" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city4" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city5" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city6" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city7" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city8" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city9" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city10" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city11" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city12" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city13" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city14" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city15" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city16" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city17" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city18" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city19" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city20" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city22" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city23" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city24" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city25" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city26" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city27" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city28" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city29" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city30" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city31" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city32" android:duration="50" />
+    <item android:drawable="@drawable/lvl2city33" android:duration="50" />
+</animation-list>
