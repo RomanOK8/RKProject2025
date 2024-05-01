@@ -30,39 +30,4 @@
     <item android:drawable="@drawable/citynight27" android:duration="50" />
     <item android:drawable="@drawable/citynight28" android:duration="50" />
     <item android:drawable="@drawable/citynight29" android:duration="50" />
-    <item android:drawable="@drawable/citynight30" android:duration="50" />
-    <item android:drawable="@drawable/citynight31" android:duration="50" />
-    <item android:drawable="@drawable/citynight32" android:duration="50" />
-    <item android:drawable="@drawable/citynight33" android:duration="50" />
-    <item android:drawable="@drawable/citynight34" android:duration="50" />
-    <item android:drawable="@drawable/citynight35" android:duration="50" />
-    <item android:drawable="@drawable/citynight36" android:duration="50" />
-    <item android:drawable="@drawable/citynight37" android:duration="50" />
-    <item android:drawable="@drawable/citynight38" android:duration="50" />
-    <item android:drawable="@drawable/citynight39" android:duration="50" />
-    <item android:drawable="@drawable/citynight40" android:duration="50" />
-    <item android:drawable="@drawable/citynight41" android:duration="50" />
-    <item android:drawable="@drawable/citynight42" android:duration="50" />
-    <item android:drawable="@drawable/citynight43" android:duration="50" />
-    <item android:drawable="@drawable/citynight44" android:duration="50" />
-    <item android:drawable="@drawable/citynight45" android:duration="50" />
-    <item android:drawable="@drawable/citynight46" android:duration="50" />
-    <item android:drawable="@drawable/citynight47" android:duration="50" />
-    <item android:drawable="@drawable/citynight48" android:duration="50" />
-    <item android:drawable="@drawable/citynight49" android:duration="50" />
-    <item android:drawable="@drawable/citynight50" android:duration="50" />
-    <item android:drawable="@drawable/citynight51" android:duration="50" />
-    <item android:drawable="@drawable/citynight52" android:duration="50" />
-    <item android:drawable="@drawable/citynight53" android:duration="50" />
-    <item android:drawable="@drawable/citynight54" android:duration="50" />
-    <item android:drawable="@drawable/citynight55" android:duration="50" />
-    <item android:drawable="@drawable/citynight56" android:duration="50" />
-    <item android:drawable="@drawable/citynight57" android:duration="50" />
-    <item android:drawable="@drawable/citynight58" android:duration="50" />
-    <item android:drawable="@drawable/citynight59" android:duration="50" />
-    <item android:drawable="@drawable/citynight60" android:duration="50" />
-    <item android:drawable="@drawable/citynight61" android:duration="50" />
-    <item android:drawable="@drawable/citynight62" android:duration="50" />
-    <item android:drawable="@drawable/citynight63" android:duration="50" />
-    <item android:drawable="@drawable/citynight64" android:duration="50" />
 </animation-list>
