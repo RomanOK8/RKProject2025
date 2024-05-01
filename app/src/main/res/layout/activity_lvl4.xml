@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".lvl4">
+    android:visibility="visible"
+    tools:context=".lvl4"
+    tools:visibility="visible">
+
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="parent"
@@ -14,11 +17,125 @@
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
-            android:id="@+id/backgroundlvl2"
+            android:id="@+id/swing_play"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/score"
+            android:layout_width="71dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="290dp"
+            android:layout_marginEnd="18dp"
+            android:layout_toStartOf="@+id/moveCounter"
+            android:visibility="visible"
+            app:srcCompat="@drawable/score2" />
 
+        <ImageView
+            android:id="@+id/obstacle"
+            android:layout_width="172dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="529dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="212dp"
+            android:src="@drawable/obstacle"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/moveCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="0"
+            android:textColor="#FF5500"
+            android:textSize="20sp"
+            android:fontFamily="monospace"/>
+        <TextView
+            android:id="@+id/gameOverTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Over"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:background="#80000000"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:fontFamily="monospace"/>
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:background="#80000000"
+            android:fontFamily="monospace"
+            android:layout_below="@id/gameOverTextView"
+            android:layout_marginTop="24sp"
+            android:text="Retry"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/CarImage"
+            android:layout_width="211dp"
+            android:layout_height="138dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="227dp"
+            android:layout_marginBottom="46dp"
+            android:src="@drawable/starshipimage"
+            app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/coinCounterTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="0"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/coin1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="634dp"
+            android:layout_marginTop="224dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="108dp"
+            android:src="@drawable/coin1"
+            android:visibility="invisible" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="147dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/coinss" />
     <ImageButton
         android:id="@+id/PauseButtonlvl1"
         android:layout_width="wrap_content"
@@ -31,6 +148,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016"
         app:srcCompat="@android:drawable/ic_media_pause" />
+
     <ImageButton
         android:id="@+id/UpButtonlvl1"
         android:layout_width="wrap_content"

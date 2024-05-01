@@ -50,6 +50,8 @@ public class lvl1 extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.swing_play);
         img.setBackgroundResource(R.drawable.background);
         backgroundAnimation = (AnimationDrawable) img.getBackground();
+        backgroundAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        backgroundAnimation.start();
         backgroundAnimation.start();
         initMediaPlayers();
         initViews();
