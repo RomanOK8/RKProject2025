@@ -3,9 +3,11 @@ package com.example.project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class LevelMenu extends AppCompatActivity {
     MediaPlayer mediaPlayere;
@@ -15,6 +17,12 @@ public class LevelMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        ImageView img23 = (ImageView)findViewById(R.id.levelmenubackground);
+        img23.setBackgroundResource(R.drawable.levelmenubackground);
+        AnimationDrawable animation = (AnimationDrawable) img23.getBackground();
+        animation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        animation.start();
+
         mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
         mediaPlayerm=MediaPlayer.create(this,R.raw.playbuttonsound);
         mediaPlayers=MediaPlayer.create(this,R.raw.settingsbuttonsound);

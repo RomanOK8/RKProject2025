@@ -6,14 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".LevelMenu">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/mainmenu2"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:context=".LevelMenu">
 
+        <ImageView
+            android:id="@+id/levelmenubackground"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
     <ImageButton
         android:id="@+id/exbt2"
         android:layout_width="wrap_content"
@@ -76,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.198"
         app:srcCompat="@drawable/lvl3" />
 

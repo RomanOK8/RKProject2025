@@ -97,18 +97,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="47dp"
-            android:layout_height="54dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="340dp"
-            android:layout_toStartOf="@+id/coinCounterTextView"
-            android:visibility="visible"
-            app:srcCompat="@drawable/coinss" />
 
         <TextView
             android:id="@+id/coinCounterTextView"
@@ -116,13 +104,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="39dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:text="0"
             android:textSize="20sp" />
-
 
         <ImageView
             android:id="@+id/coin1"
@@ -138,9 +125,17 @@
             android:layout_marginBottom="108dp"
             android:src="@drawable/coin1"
             android:visibility="invisible" />
-
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="147dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/coinss" />
     <ImageButton
         android:id="@+id/PauseButtonlvl1"
         android:layout_width="wrap_content"
@@ -179,6 +174,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
         app:srcCompat="@drawable/downbutton" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
