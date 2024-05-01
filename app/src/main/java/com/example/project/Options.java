@@ -56,6 +56,15 @@ public class Options extends AppCompatActivity {
         mediaPlayerm=MediaPlayer.create(this,R.raw.playbuttonsound);
         mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Освобождение ресурсов MediaPlayer
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
     public void play(){
         mediaPlayer.start();
         button.setText("Pause");

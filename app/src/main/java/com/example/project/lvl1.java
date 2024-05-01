@@ -20,6 +20,10 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class lvl1 extends AppCompatActivity {
+    private MediaPlayer mediaPlayerw;
+    private MediaPlayer mediaPlayerf;
+    private MediaPlayer mediaPlayerg;
+    private MediaPlayer mediaPlayerc;
     private MediaPlayer mediaPlayere;
     private MediaPlayer mediaPlayera;
     private MediaPlayer mediaPlayerud;
@@ -37,17 +41,26 @@ public class lvl1 extends AppCompatActivity {
     private TextView coinCounterTextView;
     private ImageView coin;
     private RelativeLayout relativeLayout;
-    private Handler coinGenerationHandler=new Handler();
+    private Handler coinGenerationHandler;
+    private AnimationDrawable backgroundAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lvl1);
-        ImageView img = (ImageView)findViewById(R.id.swing_play);
+        ImageView img = (ImageView) findViewById(R.id.swing_play);
         img.setBackgroundResource(R.drawable.background);
-        AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
-        frameAnimation.start();
+        backgroundAnimation = (AnimationDrawable) img.getBackground();
+        backgroundAnimation.start();
         initMediaPlayers();
         initViews();
+        mediaPlayerg.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // Воспроизведение заново, когда трек заканчивается
+                mp.start();
+            }
+        });
+        coinGenerationHandler = new Handler();
         relativeLayout = findViewById(R.id.relativeLayout2);
         coinCounterTextView = findViewById(R.id.coinCounterTextView);
         coin=findViewById(R.id.coin1);
@@ -67,6 +80,33 @@ public class lvl1 extends AppCompatActivity {
         startObstacleCreation();
         startMoveCounter();
         startCoinCreation();
+        mediaPlayerg.start();
+    }
+    private void gameWin() {
+        isGameOver = true;
+        obstacleHandler.removeCallbacks(createObstacleRunnable);
+        coinGenerationHandler.removeCallbacks(createObstacleRunnable);
+        if (moveCounterHandler != null) {
+            moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
+        }
+        if (backgroundAnimation != null) {
+            backgroundAnimation.stop();
+        }
+        carImage.clearAnimation();
+        gameOverTextView.setVisibility(View.VISIBLE);
+        gameOverTextView.setText("WIN");
+        retryButton.setVisibility(View.VISIBLE);
+        mediaPlayerg.stop();
+        mediaPlayerw.start();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Освобождение ресурсов MediaPlayer
+        if (mediaPlayerg != null) {
+            mediaPlayerg.release();
+            mediaPlayerg = null;
+        }
     }
     private Runnable checkCollisionRunnable = new Runnable() {
         @Override
@@ -90,6 +130,10 @@ public class lvl1 extends AppCompatActivity {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
         mediaPlayere=MediaPlayer.create(this, R.raw.crashsound);
+        mediaPlayerc=MediaPlayer.create(this, R.raw.coinsound);
+        mediaPlayerg=MediaPlayer.create(this, R.raw.lvl1);
+        mediaPlayerf=MediaPlayer.create(this, R.raw.failsound);
+        mediaPlayerw=MediaPlayer.create(this, R.raw.winsound);
     }
 
     private void initViews() {
@@ -122,7 +166,11 @@ public class lvl1 extends AppCompatActivity {
             public void run() {
                 moveCounter++;
                 updateMoveCounter(moveCounter);
-                moveCounterHandler.postDelayed(this, 250);
+                if (moveCounter > 500) {
+                    gameWin();
+                } else {
+                    moveCounterHandler.postDelayed(this, 250);
+                }
             }
         };
         moveCounterHandler.postDelayed(moveCounterRunnable, 250);
@@ -209,16 +257,19 @@ public class lvl1 extends AppCompatActivity {
     private void gameOver() {
         isGameOver = true;
         obstacleHandler.removeCallbacks(createObstacleRunnable);
+        coinGenerationHandler.removeCallbacks(createObstacleRunnable);
         if (moveCounterHandler != null) {
             moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
         }
-        if (coinGenerationHandler != null) {
-            coinGenerationHandler.removeCallbacksAndMessages(null); // Остановить генерацию монет
+        if (backgroundAnimation != null) {
+            backgroundAnimation.stop();
         }
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("Game Over");
         retryButton.setVisibility(View.VISIBLE);
+        mediaPlayerg.stop();
+        mediaPlayerf.start();
     }
     private void restartLevel() {
         // Завершаем текущую активность и запускаем ее заново
@@ -230,9 +281,12 @@ public class lvl1 extends AppCompatActivity {
     }
 
     public void pauseButton(View v) {
-        Intent intent = new Intent(this, Pausemenu.class);
-        startActivity(intent);
-        mediaPlayera.start();
+        if (!isGameOver) {
+            Intent intent = new Intent(this, Pausemenu.class);
+            startActivity(intent);
+            mediaPlayera.start();
+            mediaPlayerg.stop();
+        }
     }
 
     public void upButton(View v) {
@@ -305,6 +359,7 @@ public class lvl1 extends AppCompatActivity {
     private void checkCollisionWithCoin(ImageView coin) {
         if (isColliding(carImage, coin) && relativeLayout.indexOfChild(coin) != -1) {
             incrementCoinCounter();
+            mediaPlayerc.start();
             relativeLayout.removeView(coin); // Удаляем монету только при соприкосновении и если она еще существует в relativeLayout
         }
     }
