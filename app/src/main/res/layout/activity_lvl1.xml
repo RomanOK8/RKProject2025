@@ -34,7 +34,7 @@
 
         <ImageView
             android:id="@+id/obstacle"
-            android:layout_width="172dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -44,7 +44,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="212dp"
-            android:src="@drawable/obstacle"
+            android:background="@drawable/obstacle"
             android:visibility="invisible" />
 
         <TextView

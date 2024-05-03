@@ -23,6 +23,7 @@ import java.util.Random;
 public class lvl1 extends AppCompatActivity {
     private AnimationDrawable starshipAnimation;
     private AnimationDrawable coinAnimation;
+    private AnimationDrawable obstacleAnimation;
 
     private MediaPlayer mediaPlayerw;
     private MediaPlayer mediaPlayerf;
@@ -70,6 +71,11 @@ public class lvl1 extends AppCompatActivity {
         coinAnimation = (AnimationDrawable) coin.getBackground();
         coinAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
         coinAnimation.start();
+        ImageView obstacle2=findViewById(R.id.obstacle);
+        obstacle2.setBackgroundResource(R.drawable.obstacle);
+        obstacleAnimation=(AnimationDrawable) coin.getBackground();
+        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.start();
         initMediaPlayers();
         initViews();
         mediaPlayerg.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -251,11 +257,16 @@ public class lvl1 extends AppCompatActivity {
 
     private void createObstacle() {
         ImageView obstacle = new ImageView(this);
-        obstacle.setImageResource(R.drawable.obstacle);
         RelativeLayout.LayoutParams params = createObstacleLayoutParams();
         obstacle.setLayoutParams(params);
-        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout2);
         relativeLayout.addView(obstacle);
+
+        // Установка анимации для ImageView объекта
+        obstacle.setBackgroundResource(R.drawable.obstacle);
+        obstacleAnimation = (AnimationDrawable) obstacle.getBackground();
+        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.start();
+
         animateObstacle(obstacle, relativeLayout);
     }
 
