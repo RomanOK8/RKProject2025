@@ -17,9 +17,20 @@
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
-            android:id="@+id/swing_play"
+            android:id="@+id/CarImage"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="227dp"
+            android:layout_marginBottom="46dp"
+            android:src="@drawable/starship_animation"
+            app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <ImageView
             android:id="@+id/score"
             android:layout_width="71dp"
@@ -81,21 +92,7 @@
             android:text="Retry"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/CarImage"
-            android:layout_width="211dp"
-            android:layout_height="138dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="227dp"
-            android:layout_marginBottom="46dp"
-            android:src="@drawable/starshipimage"
-            app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <TextView
@@ -123,7 +120,7 @@
             android:layout_marginTop="224dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="108dp"
-            android:src="@drawable/coin1"
+            android:src="@drawable/coin_animation"
             android:visibility="invisible" />
     </RelativeLayout>
 

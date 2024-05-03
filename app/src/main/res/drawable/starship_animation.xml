@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
+    <item android:drawable="@drawable/starshipimage0" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage2" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage3" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage5" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage6" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage7" android:duration="50" />
+    <item android:drawable="@drawable/starshipimage8" android:duration="50" />
+</animation-list>
