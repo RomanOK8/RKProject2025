@@ -31,8 +31,8 @@
 
     <ImageButton
         android:id="@+id/stbt"
-        android:layout_width="91dp"
-        android:layout_height="75dp"
+        android:layout_width="112dp"
+        android:layout_height="54dp"
         android:background="@android:color/transparent"
         android:onClick="startNewActivity"
         app:layout_constraintBottom_toBottomOf="parent"

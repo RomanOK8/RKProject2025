@@ -16,25 +16,28 @@
 
     <ImageButton
         android:id="@+id/bkbt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
         android:onClick="startNewActivity"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@drawable/backbutton"
-        tools:layout_editor_absoluteX="0dp"
-        android:background="@android:color/transparent"/>
+        app:srcCompat="@drawable/backbutton" />
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
         android:onClick="startNewActivity2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bkbt"
-        app:layout_constraintVertical_bias="0.047"
-        app:srcCompat="@drawable/playbutton"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintVertical_bias="0.093"
+        app:srcCompat="@drawable/resumebutton" />
 
     <Button
         android:id="@+id/Musicbutton23"
@@ -73,12 +76,14 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
         android:onClick="end"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/exit"
-        tools:layout_editor_absoluteY="2dp"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/exit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
