@@ -158,7 +158,6 @@ public class lvl1 extends AppCompatActivity {
                         }
                     })
                     .start();
-            moveCarFastc = true;
         }
     }
     private void gameWin() {

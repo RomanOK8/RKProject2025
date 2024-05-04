@@ -7,4 +7,8 @@
     <item android:drawable="@drawable/obstacle2_4" android:duration="50" />
     <item android:drawable="@drawable/obstacle2_5" android:duration="50" />
     <item android:drawable="@drawable/obstacle2_6" android:duration="50" />
+    <item android:drawable="@drawable/obstacle2_7" android:duration="50" />
+    <item android:drawable="@drawable/obstacle2_8" android:duration="50" />
+    <item android:drawable="@drawable/obstacle2_9" android:duration="50" />
+    <item android:drawable="@drawable/obstacle2_10" android:duration="50" />
 </animation-list>

@@ -25,7 +25,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286"
-        app:srcCompat="@drawable/settingsbutton" />
+        app:srcCompat="@drawable/settingsbutton"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/resumebutton2"
@@ -38,7 +39,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.284"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@android:drawable/ic_media_play"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/exbt2"
@@ -51,5 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.281"
-        app:srcCompat="@drawable/exit" />
+        app:srcCompat="@drawable/exit"
+        android:background="@android:color/transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

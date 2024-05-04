@@ -18,10 +18,15 @@
         android:id="@+id/exbt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:onClick="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043"
         app:srcCompat="@drawable/exit"
-        tools:layout_editor_absoluteX="17dp"
         tools:srcCompat="@drawable/exit" />
 
     <ImageButton
@@ -33,15 +38,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/playbutton" />
+        app:srcCompat="@drawable/playbutton"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/setbt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:onClick="startNewActivity2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exbt"
-        app:srcCompat="@drawable/settingsbutton"
-        tools:layout_editor_absoluteX="17dp" />
+        app:layout_constraintVertical_bias="0.069"
+        app:srcCompat="@drawable/settingsbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

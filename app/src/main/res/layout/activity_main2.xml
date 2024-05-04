@@ -33,7 +33,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045"
-        app:srcCompat="@drawable/exit" />
+        app:srcCompat="@drawable/exit"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -47,7 +48,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exbt2"
         app:layout_constraintVertical_bias="0.145"
-        app:srcCompat="@drawable/backbutton" />
+        app:srcCompat="@drawable/backbutton"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/lvl1button"
@@ -60,7 +62,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.197"
-        app:srcCompat="@drawable/lvl1" />
+        app:srcCompat="@drawable/lvl1"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/lvl2button"
@@ -73,7 +76,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.198"
-        app:srcCompat="@drawable/lvl2" />
+        app:srcCompat="@drawable/lvl2"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/lvl3button"
@@ -86,7 +90,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.198"
-        app:srcCompat="@drawable/lvl3" />
+        app:srcCompat="@drawable/lvl3"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/lvl4button"
@@ -99,7 +104,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
-        app:srcCompat="@drawable/lvl4" />
+        app:srcCompat="@drawable/lvl4"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/imageButton8"
@@ -112,7 +118,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.211"
-        app:srcCompat="@drawable/lvl5" />
+        app:srcCompat="@drawable/lvl5"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -124,6 +131,7 @@
         app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settingsbutton" />
+        app:srcCompat="@drawable/settingsbutton"
+        android:background="@android:color/transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
