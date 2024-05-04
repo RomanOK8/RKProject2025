@@ -22,7 +22,7 @@
         android:onClick="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043"
@@ -33,13 +33,13 @@
         android:id="@+id/stbt"
         android:layout_width="91dp"
         android:layout_height="75dp"
+        android:background="@android:color/transparent"
         android:onClick="startNewActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/playbutton"
-        android:background="@android:color/transparent"/>
+        app:srcCompat="@drawable/playbutton" />
 
     <ImageButton
         android:id="@+id/setbt"
@@ -49,10 +49,10 @@
         android:onClick="startNewActivity2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exbt"
-        app:layout_constraintVertical_bias="0.069"
+        app:layout_constraintVertical_bias="0.075"
         app:srcCompat="@drawable/settingsbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

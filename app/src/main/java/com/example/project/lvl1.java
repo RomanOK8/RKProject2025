@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -104,21 +105,51 @@ public class lvl1 extends AppCompatActivity {
         });
         initialX = carImage.getX();
         ImageButton accelerator = findViewById(R.id.accelerator);
-        accelerator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long clickTime = System.currentTimeMillis();
-                if (clickTime - lastClickTime >= 2000) { // Разрешаем нажать раз в 20 секунд
-                    lastClickTime = clickTime;
-                    incrementMoveCounter();
-                    moveCarFast();
-                }
-            }
-        });
+
+
+        View pauseButton = findViewById(R.id.PauseButtonlvl1);
+        View upButton = findViewById(R.id.UpButtonlvl1);
+        View downButton = findViewById(R.id.downbutton);
+        View acceleratorButton = findViewById(R.id.accelerator);
+        View retryButton = findViewById(R.id.retryButton);
+
+        setTouchListenerForButton(pauseButton, () -> pauseButton(pauseButton));
+        setTouchListenerForButton(upButton, () -> upButton(upButton));
+        setTouchListenerForButton(downButton, () -> downButton(downButton));
+        setTouchListenerForButton(acceleratorButton, () -> acceleratorButton (accelerator));
+        setTouchListenerForButton(retryButton, () -> restartLevel());
+
+
         startObstacleCreation();
         startMoveCounter();
         startCoinCreation();
         mediaPlayerg.start();
+    }
+    public void acceleratorButton(View view) {
+        // Сохранение всех функций acceleratorButton
+        long clickTime = System.currentTimeMillis();
+        if (clickTime - lastClickTime >= 2000) { // Разрешаем нажать раз в 20 секунд
+            lastClickTime = clickTime;
+            incrementMoveCounter();
+            moveCarFast();
+        }
+    }
+    private void setTouchListenerForButton(final View button, final Runnable action) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Установка полупрозрачного цвета при нажатии
+                    button.setAlpha(0.5f);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    // Возврат к обычному виду после отпускания или отмены
+                    button.setAlpha(1.0f);
+                    // Выполнение действия при отпускании
+                    action.run();
+                }
+                return true; // Мы обработали событие
+            }
+        });
     }
     private void updateMoveCounter(int moveCounter) {
         moveCounterTextView.setText(String.valueOf(moveCounter));
