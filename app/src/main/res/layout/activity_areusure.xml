@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278"
-        app:srcCompat="@drawable/exit"
+        app:srcCompat="@drawable/backbutton"
         android:background="@android:color/transparent"/>
 
     <ImageButton
@@ -44,31 +44,8 @@
         app:layout_constraintStart_toEndOf="@+id/bkbt3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278"
-        app:srcCompat="@drawable/surebutton"
-        tools:srcCompat="@drawable/surebutton"
+        app:srcCompat="@drawable/exit"
+        tools:srcCompat="@drawable/exit"
         android:background="@android:color/transparent"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="228dp"
-        android:text="Выйти из игры"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leavebt"
-        app:layout_constraintVertical_bias="0.093" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Назад"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.59"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bkbt3"
-        app:layout_constraintVertical_bias="0.093" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

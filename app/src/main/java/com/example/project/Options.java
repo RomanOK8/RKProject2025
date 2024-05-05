@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 
 public class Options extends AppCompatActivity {
@@ -55,6 +58,50 @@ public class Options extends AppCompatActivity {
         mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.mainmenu1);
         mediaPlayerm=MediaPlayer.create(this,R.raw.playbuttonsound);
         mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
+        ImageButton bkbt = findViewById(R.id.bkbt);
+        ImageButton exbt = findViewById(R.id.imageButton);
+        ImageButton stbt = findViewById(R.id.imageButton2);
+        // Метод для установки анимации прозрачности
+        final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
+        buttonClick.setDuration(0); // Длительность анимации в миллисекундах
+        buttonClick.setFillAfter(true); // Сохраняет конечное состояние после анимации
+
+        final AlphaAnimation buttonRelease = new AlphaAnimation(0.5F, 1F);
+        buttonRelease.setDuration(0); // Длительность анимации в миллисекундах
+        buttonRelease.setFillAfter(true); // Сохраняет конечное состояние после анимации
+        View.OnTouchListener changeAlphaOnTouch = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.startAnimation(buttonClick);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.startAnimation(buttonRelease);
+                        if (v.getId() == R.id.imageButton) {
+                            Intent intent = new Intent(Options.this, areusure.class);
+                            startActivity(intent);
+                            mediaPlayere.start();
+                        } else if (v.getId() == R.id.bkbt) {
+                            Intent intent = new Intent(Options.this, MainMenu.class);
+                            startActivity(intent);
+                            mediaPlayerm.start();
+                        } else if (v.getId() == R.id.imageButton2) {
+                            Intent intent = new Intent(Options.this, LevelMenu.class);
+                            startActivity(intent);
+                            mediaPlayerm.start();
+                        }
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        v.startAnimation(buttonRelease);
+                        break;
+                }
+                return true;
+            }
+        };
+       bkbt.setOnTouchListener(changeAlphaOnTouch);
+       exbt.setOnTouchListener(changeAlphaOnTouch);
+       stbt.setOnTouchListener(changeAlphaOnTouch);
     }
     @Override
     protected void onDestroy() {
@@ -72,42 +119,5 @@ public class Options extends AppCompatActivity {
     public void pause(){
         mediaPlayer.pause();
         button.setText("Play");
-    }
-    public void stop() {
-        if (true) {
-            Intent intent = new Intent(this, MainMenu.class);
-            startActivity(intent);
-                button.setText("Pause");
-                mediaPlayer.stop();
-        }
-    }
-    public void stop2() {
-        Intent intent = new Intent(this, LevelMenu.class);
-        startActivity(intent);
-        button.setText("Pause");
-        mediaPlayer.stop();
-    }public void stop3() {
-        Intent intent = new Intent(this, areusure.class);
-        startActivity(intent);
-        button.setText("Pause");
-        mediaPlayer.stop();
-    }
-    public void startNewActivity(View v){
-        Intent intent=new Intent(this, MainMenu.class);
-        startActivity(intent);
-        stop();
-        mediaPlayere.start();
-    }
-    public void startNewActivity2(View v){
-        Intent intent=new Intent(this, LevelMenu.class);
-        startActivity(intent);
-        stop2();
-        mediaPlayerm.start();
-    }
-    public void end(View v){
-        Intent intent=new Intent(this,areusure.class);
-        startActivity(intent);
-        stop3();
-        mediaPlayere.start();
     }
 }
