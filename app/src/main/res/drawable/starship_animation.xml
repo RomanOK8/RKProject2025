@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
-    <item android:drawable="@drawable/starshipimage1" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage2" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage3" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage5" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage6" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage7" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage8" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage9" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage10" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage11" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage12" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage13" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage14" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage15" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage16" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage17" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage18" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage19" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage20" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage21" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage22" android:duration="100" />
-    <item android:drawable="@drawable/starshipimage23" android:duration="100" />
-
+    <item android:drawable="@drawable/starshipimage1" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage2" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage3" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage5" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage6" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage7" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage8" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage9" android:duration="75" />
+    <item android:drawable="@drawable/starshipimage10" android:duration="75" />
 </animation-list>
