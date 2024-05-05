@@ -25,7 +25,7 @@ public class lvl1 extends AppCompatActivity {
     private AnimationDrawable starshipAnimation;
     private AnimationDrawable coinAnimation;
     private AnimationDrawable obstacleAnimation;
-
+    private MediaPlayer mediaPlayerac;
     private MediaPlayer mediaPlayerw;
     private MediaPlayer mediaPlayerf;
     private MediaPlayer mediaPlayerg;
@@ -190,6 +190,7 @@ public class lvl1 extends AppCompatActivity {
                     })
                     .start();
         }
+        mediaPlayerac.start();
     }
     private void gameWin() {
         isGameOver = true;
@@ -243,6 +244,7 @@ public class lvl1 extends AppCompatActivity {
         mediaPlayerg=MediaPlayer.create(this, R.raw.lvl1);
         mediaPlayerf=MediaPlayer.create(this, R.raw.failsound);
         mediaPlayerw=MediaPlayer.create(this, R.raw.winsound);
+        mediaPlayerac=MediaPlayer.create(this, R.raw.acceleratorsound);
     }
 
     private void initViews() {
