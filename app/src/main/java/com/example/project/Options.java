@@ -82,14 +82,17 @@ public class Options extends AppCompatActivity {
                             Intent intent = new Intent(Options.this, areusure.class);
                             startActivity(intent);
                             mediaPlayere.start();
+                            mediaPlayer.stop();
                         } else if (v.getId() == R.id.bkbt) {
                             Intent intent = new Intent(Options.this, MainMenu.class);
                             startActivity(intent);
                             mediaPlayerm.start();
+                            mediaPlayer.stop();
                         } else if (v.getId() == R.id.imageButton2) {
                             Intent intent = new Intent(Options.this, LevelMenu.class);
                             startActivity(intent);
                             mediaPlayerm.start();
+                            mediaPlayer.stop();
                         }
                         break;
                     case MotionEvent.ACTION_CANCEL:
