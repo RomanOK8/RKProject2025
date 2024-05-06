@@ -128,7 +128,7 @@ public class lvl1 extends AppCompatActivity {
     public void acceleratorButton(View view) {
         // Сохранение всех функций acceleratorButton
         long clickTime = System.currentTimeMillis();
-        if (clickTime - lastClickTime >= 2000) { // Разрешаем нажать раз в 20 секунд
+        if (clickTime - lastClickTime >= 10000) { // Разрешаем нажать раз в =10 секунд
             lastClickTime = clickTime;
             incrementMoveCounter();
             moveCarFast();
