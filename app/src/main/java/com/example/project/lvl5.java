@@ -154,10 +154,10 @@ public class lvl5 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 3000);
+                obstacleHandler.postDelayed(this, 1000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 2000);
+        obstacleHandler.postDelayed(createObstacleRunnable, 1500);
     }
 
     private void startMoveCounter() {

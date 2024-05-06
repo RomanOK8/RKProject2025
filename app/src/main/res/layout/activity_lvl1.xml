@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:fontFamily="monospace"
+            android:fontFamily="@font/pixelae_bold"
             android:text="0"
             android:textColor="#FF5500"
             android:textSize="20sp" />
@@ -52,11 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="#80000000"
-            android:fontFamily="monospace"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/pixelae_bold"
             android:gravity="center"
             android:text="Game Over"
-            android:textColor="@android:color/white"
+            android:textColor="#FF0000"
             android:textSize="24sp"
             android:visibility="gone" />
 
@@ -67,11 +67,12 @@
             android:layout_below="@id/gameOverTextView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24sp"
-            android:background="#80000000"
-            android:fontFamily="monospace"
+            android:fontFamily="@font/pixelae_bold"
             android:text="Retry"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+            android:textColor="#FF5500"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            />
 
 
         <ImageView
@@ -90,14 +91,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95" />
-        <TextView
-            android:id="@+id/secondChanceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/coin1"
             android:layout_width="wrap_content"
@@ -119,13 +113,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="235dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="95dp"
-            android:layout_marginRight="95dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginRight="34dp"
             android:layout_marginBottom="16dp"
-            android:layout_toEndOf="@+id/moveCounter"
+            android:fontFamily="@font/pixelae_bold"
             android:text="0"
+            android:textColor="#FFEB3B"
             android:textSize="20sp" />
 
         <ImageButton
@@ -141,8 +135,35 @@
             android:layout_marginBottom="34dp"
             android:background="@android:color/transparent"
             android:src="@drawable/accelerator" />
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/coinCountertxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="360dp"
+            android:fontFamily="@font/pixelae_bold"
+            android:textColor="#FFEB3B"
+            android:text="Coins"
+            android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/moveCountertxt"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="284dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="377dp"
+            android:layout_marginBottom="363dp"
+            android:fontFamily="@font/pixelae_bold"
+            android:text="Score"
+            android:textColor="#FF5500"
+            android:textSize="20sp"
+            android:gravity="center"/>
+    </RelativeLayout>
     <ImageButton
         android:id="@+id/PauseButtonlvl1"
         android:layout_width="wrap_content"

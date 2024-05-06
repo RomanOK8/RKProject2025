@@ -1,11 +1,15 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -38,6 +42,7 @@ public class lvl1 extends AppCompatActivity {
     private TextView moveCounterTextView;
     private Handler moveCounterHandler;
     private TextView gameOverTextView;
+    private Color gameOverColor;
     private Handler obstacleHandler;
     private Runnable createObstacleRunnable;
     private Button retryButton;
@@ -205,6 +210,7 @@ public class lvl1 extends AppCompatActivity {
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("WIN");
+        gameOverTextView.setTextColor(Color.GREEN);
         retryButton.setVisibility(View.VISIBLE);
         mediaPlayerg.stop();
         mediaPlayerw.start();
@@ -277,7 +283,7 @@ public class lvl1 extends AppCompatActivity {
             public void run() {
                 moveCounter++;
                 updateMoveCounter(moveCounter);
-                if (moveCounter > 601) {
+                if (moveCounter >599) {
                     gameWin();
                 } else {
                     moveCounterHandler.postDelayed(this, 250);
