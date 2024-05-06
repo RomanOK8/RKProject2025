@@ -55,9 +55,10 @@ public class lvl1 extends AppCompatActivity {
     private Handler coinGenerationHandler;
     private AnimationDrawable backgroundAnimation;
     private long lastClickTime = 0;
-    private float initialX; // Исходная координата X для carImage
+    private float initialX;
     private int moveCounter = 0;
     private boolean moveCarFastc=false;
+    private int winscore=599;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -283,7 +284,7 @@ public class lvl1 extends AppCompatActivity {
             public void run() {
                 moveCounter++;
                 updateMoveCounter(moveCounter);
-                if (moveCounter >599) {
+                if (moveCounter >winscore) {
                     gameWin();
                 } else {
                     moveCounterHandler.postDelayed(this, 250);

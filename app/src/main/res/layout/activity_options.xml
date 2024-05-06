@@ -64,19 +64,6 @@
         app:layout_constraintTop_toBottomOf="@+id/Musicbutton23"
         app:layout_constraintVertical_bias="0.045" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voluemeSeekBar2"
-        app:layout_constraintVertical_bias="0.039"
-        app:srcCompat="@drawable/music" />
-
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="45dp"
@@ -88,5 +75,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/exit" />
+
+    <TextView
+        android:id="@+id/musictxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Music check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voluemeSeekBar2"
+        app:layout_constraintVertical_bias="0.088"
+        android:fontFamily="@font/pixelae_bold"
+        android:textColor="#F4F0F0"
+        android:background="#80000000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
