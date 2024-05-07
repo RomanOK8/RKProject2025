@@ -43,14 +43,16 @@
         android:id="@+id/Musicbutton23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="32dp"
         android:background="#80000000"
         android:fontFamily="@font/pixelae_bold"
         android:text="Play"
         android:textColor="#F4F0F0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096" />
 
     <SeekBar
         android:id="@+id/voluemeSeekBar2"
@@ -62,7 +64,34 @@
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Musicbutton23"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.049" />
+
+    <SeekBar
+        android:id="@+id/brightnessSeekBar"
+        android:layout_width="118dp"
+        android:layout_height="26dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toEndOf="@+id/voluemeSeekBar2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.27" />
+
+    <TextView
+        android:id="@+id/brightnesstxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#80000000"
+        android:fontFamily="@font/pixelae_bold"
+        android:text="Brightness"
+        android:textColor="#F4F0F0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintStart_toEndOf="@+id/musictxt"
+        app:layout_constraintTop_toBottomOf="@+id/brightnessSeekBar"
+        app:layout_constraintVertical_bias="0.106" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -80,15 +109,14 @@
         android:id="@+id/musictxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#80000000"
+        android:fontFamily="@font/pixelae_bold"
         android:text="Music check"
+        android:textColor="#F4F0F0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/voluemeSeekBar2"
-        app:layout_constraintVertical_bias="0.088"
-        android:fontFamily="@font/pixelae_bold"
-        android:textColor="#F4F0F0"
-        android:background="#80000000"/>
-
+        app:layout_constraintVertical_bias="0.088" />
 </androidx.constraintlayout.widget.ConstraintLayout>
