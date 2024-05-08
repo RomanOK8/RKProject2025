@@ -99,13 +99,11 @@ public class lvl1 extends AppCompatActivity {
         updateCoinCounter(coinCounter);
 
         retryButton = findViewById(R.id.retryButton);
-        // Скрываем кнопку Retry изначально
         retryButton.setVisibility(View.GONE);
-        // Добавляем обработчик нажатия на кнопку Retry
+
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Перезапускаем уровень
                 restartLevel();
             }
         });
@@ -132,7 +130,6 @@ public class lvl1 extends AppCompatActivity {
         mediaPlayerg.start();
     }
     public void acceleratorButton(View view) {
-        // Сохранение всех функций acceleratorButton
         long clickTime = System.currentTimeMillis();
         if (clickTime - lastClickTime >= 10000) { // Разрешаем нажать раз в =10 секунд
             lastClickTime = clickTime;
@@ -161,9 +158,8 @@ public class lvl1 extends AppCompatActivity {
         moveCounterTextView.setText(String.valueOf(moveCounter));
         if(moveCarFastc){
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
-            // Увеличиваем его на 25
+            // Увеличиваем его на 25(да да +12=25 без вопросов)
             int newCount = currentCount + 12;
-            // Обновляем TextView
             moveCounterTextView.setText(String.valueOf(newCount));
         }
     }
@@ -460,10 +456,6 @@ public class lvl1 extends AppCompatActivity {
             startCollisionCheck();
         }
     }
-
-
-
-
     private RelativeLayout.LayoutParams createCoinLayoutParams() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,

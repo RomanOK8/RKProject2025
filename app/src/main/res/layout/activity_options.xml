@@ -64,7 +64,8 @@
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Musicbutton23"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.049"
+        android:saveEnabled="true"/>
 
     <SeekBar
         android:id="@+id/brightnessSeekBar"
@@ -76,7 +77,8 @@
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toEndOf="@+id/voluemeSeekBar2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27" />
+        app:layout_constraintVertical_bias="0.27"
+        android:saveEnabled="true"/>
 
     <TextView
         android:id="@+id/brightnesstxt"

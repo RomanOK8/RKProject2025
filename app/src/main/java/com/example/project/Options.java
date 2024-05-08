@@ -31,6 +31,7 @@ public class Options extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
+
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
@@ -77,7 +78,9 @@ public class Options extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // Не используется
             }
+
         });
+
 
         volumeSeekBar.setMax(maxVolume);
         volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -96,6 +99,7 @@ public class Options extends AppCompatActivity {
                 // Не используется
             }
         });
+
 
         button = findViewById(R.id.Musicbutton23);
         button.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +167,21 @@ public class Options extends AppCompatActivity {
         exbt.setOnTouchListener(changeAlphaOnTouch);
         stbt.setOnTouchListener(changeAlphaOnTouch);
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("volumeProgress", volumeSeekBar.getProgress());
+        outState.putInt("brightnessProgress", brightnessSeekBar.getProgress());
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            volumeSeekBar.setProgress(savedInstanceState.getInt("volumeProgress"));
+            brightnessSeekBar.setProgress(savedInstanceState.getInt("brightnessProgress"));
+        }
+    }
     private void adjustBrightness(int brightness) {
 
         float brightnessFloat = brightness / 255.0f;
