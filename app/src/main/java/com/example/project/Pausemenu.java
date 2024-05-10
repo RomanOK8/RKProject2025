@@ -14,25 +14,27 @@ public class Pausemenu extends AppCompatActivity {
     MediaPlayer mediaPlayers;
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayera;
-    private int moveCounter; // Переменная для сохранения счетчика перемещений
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pausemenu);
-        mediaPlayers=MediaPlayer.create(this,R.raw.settingsbuttonsound);
-        mediaPlayere=MediaPlayer.create(this,R.raw.endsound);
-        mediaPlayera=MediaPlayer.create(this,R.raw.pauseandbacksound);
+
+        mediaPlayers = MediaPlayer.create(this, R.raw.settingsbuttonsound);
+        mediaPlayere = MediaPlayer.create(this, R.raw.endsound);
+        mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
+
         ImageButton options = findViewById(R.id.settingsbt1);
         ImageButton resume = findViewById(R.id.resumebutton2);
         ImageButton exbt = findViewById(R.id.exbt2);
-        // Метод для установки анимации прозрачности
+
         final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
-        buttonClick.setDuration(0); // Длительность анимации в миллисекундах
-        buttonClick.setFillAfter(true); // Сохраняет конечное состояние после анимации
+        buttonClick.setDuration(0);
+        buttonClick.setFillAfter(true);
 
         final AlphaAnimation buttonRelease = new AlphaAnimation(0.5F, 1F);
-        buttonRelease.setDuration(0); // Длительность анимации в миллисекундах
-        buttonRelease.setFillAfter(true); // Сохраняет конечное состояние после анимации
+        buttonRelease.setDuration(0);
+        buttonRelease.setFillAfter(true);
 
         View.OnTouchListener changeAlphaOnTouch = new View.OnTouchListener() {
             @Override
@@ -51,13 +53,19 @@ public class Pausemenu extends AppCompatActivity {
                             Intent intent = new Intent(Pausemenu.this, areusure.class);
                             startActivity(intent);
                             mediaPlayere.start();
+                        } else if (v.getId() == R.id.resumebutton2) {
+                            // Переход обратно в уровень
+                            Intent intent = getIntent();
+                            String levelClassName = intent.getStringExtra("levelClass");
+                            if (levelClassName != null) {
+                                try {
+                                    Class<?> levelClass = Class.forName(levelClassName);
+                                    startLevelActivity(levelClass);
+                                } catch (ClassNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
-                        else if (v.getId() == R.id.resumebutton2) {
-                            Intent intent = new Intent(Pausemenu.this, lvl1.class);
-                            startActivity(intent);
-                            mediaPlayera.start();
-                        }
-
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         v.startAnimation(buttonRelease);
@@ -66,9 +74,15 @@ public class Pausemenu extends AppCompatActivity {
                 return true;
             }
         };
+
         options.setOnTouchListener(changeAlphaOnTouch);
         exbt.setOnTouchListener(changeAlphaOnTouch);
-       resume.setOnTouchListener(changeAlphaOnTouch);
+        resume.setOnTouchListener(changeAlphaOnTouch);
     }
 
+    private void startLevelActivity(Class<?> levelClass) {
+        Intent intent = new Intent(Pausemenu.this, levelClass);
+        startActivity(intent);
+        mediaPlayera.start();
+    }
 }

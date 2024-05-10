@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -220,6 +221,21 @@ public class lvl1 extends AppCompatActivity {
             mediaPlayerg.release();
             mediaPlayerg = null;
         }
+        if (starshipAnimation != null) {
+            starshipAnimation.stop();
+        }
+        if (backgroundAnimation != null) {
+            backgroundAnimation.stop();
+            backgroundAnimation=null;
+        }
+        if (coinAnimation != null) {
+            coinAnimation.stop();
+            coinAnimation=null;
+        }
+        if (obstacleAnimation != null) {
+            obstacleAnimation.stop();
+            obstacleAnimation=null;
+        }
     }
     private Runnable checkCollisionRunnable = new Runnable() {
         @Override
@@ -358,6 +374,8 @@ public class lvl1 extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // Останавливаем анимацию
+                explodeAnimation.stop();
                 // Сбрасываем фон, чтобы удалить анимацию
                 view.setBackground(null);
             }
@@ -398,10 +416,11 @@ public class lvl1 extends AppCompatActivity {
 
 
     public void pauseButton(View v) {
-            Intent intent = new Intent(this, Pausemenu.class);
-            startActivity(intent);
-            mediaPlayera.start();
-            mediaPlayerg.stop();
+        Intent intent = new Intent(this, Pausemenu.class);
+        intent.putExtra("levelClass", lvl1.class.getName());
+        startActivity(intent);
+        mediaPlayera.start();
+        mediaPlayerg.stop();
     }
 
     public void upButton(View v) {

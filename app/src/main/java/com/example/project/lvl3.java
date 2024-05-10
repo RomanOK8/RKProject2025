@@ -1,19 +1,24 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +26,10 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class lvl3 extends AppCompatActivity {
+    private AnimationDrawable starshipAnimation;
+    private AnimationDrawable coinAnimation;
+    private AnimationDrawable obstacleAnimation;
+    private MediaPlayer mediaPlayerac;
     private MediaPlayer mediaPlayerw;
     private MediaPlayer mediaPlayerf;
     private MediaPlayer mediaPlayerg;
@@ -33,6 +42,7 @@ public class lvl3 extends AppCompatActivity {
     private TextView moveCounterTextView;
     private Handler moveCounterHandler;
     private TextView gameOverTextView;
+    private Color gameOverColor;
     private Handler obstacleHandler;
     private Runnable createObstacleRunnable;
     private Button retryButton;
@@ -44,16 +54,35 @@ public class lvl3 extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private Handler coinGenerationHandler;
     private AnimationDrawable backgroundAnimation;
+    private long lastClickTime = 0;
+    private float initialX;
+    private int moveCounter = 0;
+    private boolean moveCarFastc=false;
+    private int winscore=599;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lvl1);
+        setContentView(R.layout.activity_lvl3);
         ImageView img = (ImageView) findViewById(R.id.swing_play);
         img.setBackgroundResource(R.drawable.lvl3background);
+        ImageView carImage = findViewById(R.id.CarImage);
+        carImage.setBackgroundResource(R.drawable.starship_animation);
+        starshipAnimation = (AnimationDrawable) carImage.getBackground();
+        starshipAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        starshipAnimation.start();
         backgroundAnimation = (AnimationDrawable) img.getBackground();
         backgroundAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
         backgroundAnimation.start();
-        backgroundAnimation.start();
+        ImageView coin=findViewById(R.id.coin1);
+        coin.setBackgroundResource(R.drawable.coin_animation);
+        coinAnimation = (AnimationDrawable) coin.getBackground();
+        coinAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        coinAnimation.start();
+        ImageView obstacle2=findViewById(R.id.obstacle);
+        obstacle2.setBackgroundResource(R.drawable.obstacle);
+        obstacleAnimation=(AnimationDrawable) coin.getBackground();
+        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.start();
         initMediaPlayers();
         initViews();
         mediaPlayerg.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -70,20 +99,100 @@ public class lvl3 extends AppCompatActivity {
         updateCoinCounter(coinCounter);
 
         retryButton = findViewById(R.id.retryButton);
-        // Скрываем кнопку Retry изначально
         retryButton.setVisibility(View.GONE);
-        // Добавляем обработчик нажатия на кнопку Retry
+
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Перезапускаем уровень
                 restartLevel();
             }
         });
+        initialX = carImage.getX();
+        ImageButton accelerator = findViewById(R.id.accelerator);
+
+
+        View pauseButton = findViewById(R.id.PauseButtonlvl1);
+        View upButton = findViewById(R.id.UpButtonlvl1);
+        View downButton = findViewById(R.id.downbutton);
+        View acceleratorButton = findViewById(R.id.accelerator);
+        View retryButton = findViewById(R.id.retryButton);
+
+        setTouchListenerForButton(pauseButton, () -> pauseButton(pauseButton));
+        setTouchListenerForButton(upButton, () -> upButton(upButton));
+        setTouchListenerForButton(downButton, () -> downButton(downButton));
+        setTouchListenerForButton(acceleratorButton, () -> acceleratorButton (accelerator));
+        setTouchListenerForButton(retryButton, () -> restartLevel());
+
+
         startObstacleCreation();
         startMoveCounter();
         startCoinCreation();
         mediaPlayerg.start();
+    }
+    public void acceleratorButton(View view) {
+        long clickTime = System.currentTimeMillis();
+        if (clickTime - lastClickTime >= 10000) { // Разрешаем нажать раз в =10 секунд
+            lastClickTime = clickTime;
+            incrementMoveCounter();
+            moveCarFast();
+        }
+    }
+    private void setTouchListenerForButton(final View button, final Runnable action) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Установка полупрозрачного цвета при нажатии
+                    button.setAlpha(0.5f);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    // Возврат к обычному виду после отпускания или отмены
+                    button.setAlpha(1.0f);
+                    // Выполнение действия при отпускании
+                    action.run();
+                }
+                return true; // Мы обработали событие
+            }
+        });
+    }
+    private void updateMoveCounter(int moveCounter) {
+        moveCounterTextView.setText(String.valueOf(moveCounter));
+        if(moveCarFastc){
+            int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
+            // Увеличиваем его на 25(да да +12=25 без вопросов)
+            int newCount = currentCount + 12;
+            moveCounterTextView.setText(String.valueOf(newCount));
+        }
+    }
+    private void incrementMoveCounter() {
+        if (!isGameOver) {
+            int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
+            // Увеличиваем его на 25
+            int newCount = currentCount + 12;
+            moveCounter += 12; // Прибавляем 25 к счетчику перемещений
+            updateMoveCounter(moveCounter); // Обновляем TextView счетчика перемещений
+        }
+    }
+    private void moveCarFast() {
+        if (!isGameOver) {
+            // Сохраняем исходные координаты carImage
+            initialX = carImage.getX();
+            // Перемещаем ImageView быстро вправо
+            carImage.animate()
+                    .translationXBy(1500)
+                    .setDuration(500)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            // Возвращаем ImageView на исходную позицию
+                            carImage.animate()
+                                    .x(initialX)
+                                    .setDuration(500)
+                                    .start();
+                        }
+                    })
+                    .start();
+        }
+        mediaPlayerac.start();
     }
     private void gameWin() {
         isGameOver = true;
@@ -98,6 +207,7 @@ public class lvl3 extends AppCompatActivity {
         carImage.clearAnimation();
         gameOverTextView.setVisibility(View.VISIBLE);
         gameOverTextView.setText("WIN");
+        gameOverTextView.setTextColor(Color.GREEN);
         retryButton.setVisibility(View.VISIBLE);
         mediaPlayerg.stop();
         mediaPlayerw.start();
@@ -110,6 +220,20 @@ public class lvl3 extends AppCompatActivity {
             mediaPlayerg.release();
             mediaPlayerg = null;
         }
+        if (starshipAnimation != null) {
+            starshipAnimation.stop();
+        }
+        if (backgroundAnimation != null) {
+            backgroundAnimation.stop();
+        }
+        if (coinAnimation != null) {
+            coinAnimation.stop();
+        }
+        if (obstacleAnimation != null) {
+            obstacleAnimation.stop();
+        }
+
+
     }
     private Runnable checkCollisionRunnable = new Runnable() {
         @Override
@@ -137,6 +261,7 @@ public class lvl3 extends AppCompatActivity {
         mediaPlayerg=MediaPlayer.create(this, R.raw.lvl3music);
         mediaPlayerf=MediaPlayer.create(this, R.raw.failsound);
         mediaPlayerw=MediaPlayer.create(this, R.raw.winsound);
+        mediaPlayerac=MediaPlayer.create(this, R.raw.acceleratorsound);
     }
 
     private void initViews() {
@@ -154,22 +279,22 @@ public class lvl3 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 4000);
+                obstacleHandler.postDelayed(this, 7000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 5000);
+        obstacleHandler.postDelayed(createObstacleRunnable, 7000);
     }
 
     private void startMoveCounter() {
         moveCounterHandler = new Handler();
         final Runnable moveCounterRunnable = new Runnable() {
-            private int moveCounter = 0;
+
 
             @Override
             public void run() {
                 moveCounter++;
                 updateMoveCounter(moveCounter);
-                if (moveCounter > 500) {
+                if (moveCounter >winscore) {
                     gameWin();
                 } else {
                     moveCounterHandler.postDelayed(this, 250);
@@ -181,11 +306,16 @@ public class lvl3 extends AppCompatActivity {
 
     private void createObstacle() {
         ImageView obstacle = new ImageView(this);
-        obstacle.setImageResource(R.drawable.obstacle);
         RelativeLayout.LayoutParams params = createObstacleLayoutParams();
         obstacle.setLayoutParams(params);
-        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout2);
         relativeLayout.addView(obstacle);
+
+        // Установка анимации для ImageView объекта
+        obstacle.setBackgroundResource(R.drawable.obstacle);
+        obstacleAnimation = (AnimationDrawable) obstacle.getBackground();
+        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.start();
+
         animateObstacle(obstacle, relativeLayout);
     }
 
@@ -242,6 +372,8 @@ public class lvl3 extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // Останавливаем анимацию
+                explodeAnimation.stop();
                 // Сбрасываем фон, чтобы удалить анимацию
                 view.setBackground(null);
             }
@@ -279,17 +411,14 @@ public class lvl3 extends AppCompatActivity {
         finish();
         startActivity(getIntent());
     }
-    private void updateMoveCounter(int moveCounter) {
-        moveCounterTextView.setText(String.valueOf(moveCounter));
-    }
+
 
     public void pauseButton(View v) {
-        if (!isGameOver) {
-            Intent intent = new Intent(this, Pausemenu.class);
-            startActivity(intent);
-            mediaPlayera.start();
-            mediaPlayerg.stop();
-        }
+        Intent intent = new Intent(this, Pausemenu.class);
+        intent.putExtra("levelClass", lvl3.class.getName());
+        startActivity(intent);
+        mediaPlayera.start();
+        mediaPlayerg.stop();
     }
 
     public void upButton(View v) {
@@ -314,29 +443,36 @@ public class lvl3 extends AppCompatActivity {
 
 
     private void startCoinCreation() {
-        Handler coinGenerationHandler = new Handler();
-        Runnable createCoinRunnable = new Runnable() {
-            @Override
-            public void run() {
-                createCoin();
-                coinGenerationHandler.postDelayed(this, 16000);
-            }
-        };
-        coinGenerationHandler.postDelayed(createCoinRunnable, 16000);
+        if (!isGameOver) {
+            Handler coinGenerationHandler = new Handler();
+            Runnable createCoinRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    createCoin();
+                    coinGenerationHandler.postDelayed(this, 10000);
+                }
+            };
+            coinGenerationHandler.postDelayed(createCoinRunnable, 10000);
+        }
     }
 
     private void createCoin() {
-        coin = new ImageView(this);
-        coin.setImageResource(R.drawable.coin1);
-        RelativeLayout.LayoutParams params = createCoinLayoutParams();
-        coin.setLayoutParams(params);
-        relativeLayout.addView(coin); // Добавляем монету в relativeLayout
-        animateCoin(coin);
-        startCollisionCheck();
+        if (!isGameOver) {
+            coin = new ImageView(this);
+            RelativeLayout.LayoutParams params = createCoinLayoutParams();
+            coin.setLayoutParams(params);
+            relativeLayout.addView(coin); // Добавляем монету в relativeLayout
+
+            // Устанавливаем анимацию для ImageView монетки
+            coin.setImageResource(R.drawable.coin_animation);
+            coinAnimation = (AnimationDrawable) coin.getDrawable();
+            coinAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+            coinAnimation.start();
+
+            animateCoin(coin);
+            startCollisionCheck();
+        }
     }
-
-
-
     private RelativeLayout.LayoutParams createCoinLayoutParams() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,

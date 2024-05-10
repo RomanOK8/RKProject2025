@@ -14,36 +14,26 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="parent"
         tools:context=".lvl4"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="16dp">
 
         <ImageView
             android:id="@+id/swing_play"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/score"
-            android:layout_width="71dp"
-            android:layout_height="65dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="290dp"
-            android:layout_marginEnd="18dp"
-            android:layout_toStartOf="@+id/moveCounter"
-            android:visibility="visible"
-            app:srcCompat="@drawable/score2" />
 
         <ImageView
             android:id="@+id/obstacle"
-            android:layout_width="172dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="529dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="212dp"
-            android:src="@drawable/obstacle"
+            android:layout_marginStart="572dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="180dp"
+            android:background="@drawable/obstacle"
             android:visibility="invisible" />
 
         <TextView
@@ -52,64 +42,55 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/pixelae_bold"
             android:text="0"
             android:textColor="#FF5500"
-            android:textSize="20sp"
-            android:fontFamily="monospace"/>
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/gameOverTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game Over"
-            android:textSize="24sp"
-            android:textColor="@android:color/white"
-            android:background="#80000000"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:fontFamily="monospace"/>
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/pixelae_bold"
+            android:gravity="center"
+            android:text="Game Over"
+            android:textColor="#FF0000"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/retryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
-            android:background="#80000000"
-            android:fontFamily="monospace"
             android:layout_below="@id/gameOverTextView"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="24sp"
+            android:fontFamily="@font/pixelae_bold"
             android:text="Retry"
-            android:visibility="gone" />
+            android:textColor="#FF5500"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            />
+
 
         <ImageView
             android:id="@+id/CarImage"
-            android:layout_width="211dp"
-            android:layout_height="138dp"
+            android:layout_width="196dp"
+            android:layout_height="94dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="227dp"
-            android:layout_marginBottom="46dp"
-            android:src="@drawable/starship_animation"
-            app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
+            android:layout_marginStart="80dp"
+            android:layout_marginBottom="59dp"
+            android:background="@drawable/starship_animation"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/coinCounterTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="0"
-            android:textSize="20sp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.95" />
 
         <ImageView
             android:id="@+id/coin1"
@@ -119,23 +100,70 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="634dp"
-            android:layout_marginTop="224dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="108dp"
-            android:src="@drawable/coin1"
+            android:layout_marginStart="648dp"
+            android:layout_marginTop="241dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="91dp"
             android:visibility="invisible" />
-    </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="147dp"
-        android:layout_height="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016"
-        app:srcCompat="@drawable/coinss" />
+        <TextView
+            android:id="@+id/coinCounterTextView"
+            android:layout_width="29dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginRight="34dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/pixelae_bold"
+            android:text="0"
+            android:textColor="#FFEB3B"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/accelerator"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="34dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/accelerator" />
+        <TextView
+            android:id="@+id/coinCountertxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="360dp"
+            android:fontFamily="@font/pixelae_bold"
+            android:textColor="#FFEB3B"
+            android:text="Coins"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/moveCountertxt"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="284dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="377dp"
+            android:layout_marginBottom="363dp"
+            android:fontFamily="@font/pixelae_bold"
+            android:text="Score"
+            android:textColor="#FF5500"
+            android:textSize="20sp"
+            android:gravity="center"/>
+    </RelativeLayout>
     <ImageButton
         android:id="@+id/PauseButtonlvl1"
         android:layout_width="wrap_content"
@@ -147,7 +175,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016"
-        app:srcCompat="@android:drawable/ic_media_pause" />
+        app:srcCompat="@drawable/pauseimg"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/UpButtonlvl1"
@@ -160,10 +189,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.761"
-        app:srcCompat="@drawable/upbutton" />
+        app:srcCompat="@drawable/upbutton"
+        android:background="@android:color/transparent" />
 
     <ImageButton
-        android:id="@+id/DownButtonlvl1"
+        android:id="@+id/downbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="downButton"
@@ -173,6 +203,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/downbutton" />
+        app:srcCompat="@drawable/downbutton"
+        android:background="@android:color/transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
