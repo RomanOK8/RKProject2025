@@ -279,10 +279,10 @@ public class lvl2 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 6261);
+                obstacleHandler.postDelayed(this, 6000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 6261);
+        obstacleHandler.postDelayed(createObstacleRunnable, 6000);
     }
 
     private void startMoveCounter() {

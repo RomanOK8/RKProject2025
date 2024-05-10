@@ -279,10 +279,10 @@ public class lvl5 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 7000);
+                obstacleHandler.postDelayed(this, 4000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 7000);
+        obstacleHandler.postDelayed(createObstacleRunnable, 4000);
     }
 
     private void startMoveCounter() {
@@ -449,10 +449,10 @@ public class lvl5 extends AppCompatActivity {
                 @Override
                 public void run() {
                     createCoin();
-                    coinGenerationHandler.postDelayed(this, 10000);
+                    coinGenerationHandler.postDelayed(this, 12000);
                 }
             };
-            coinGenerationHandler.postDelayed(createCoinRunnable, 10000);
+            coinGenerationHandler.postDelayed(createCoinRunnable, 12000);
         }
     }
 
