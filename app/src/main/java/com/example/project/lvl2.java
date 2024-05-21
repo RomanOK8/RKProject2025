@@ -68,27 +68,27 @@ public class lvl2 extends AppCompatActivity {
         ImageView carImage = findViewById(R.id.CarImage);
         carImage.setBackgroundResource(R.drawable.starship_animation);
         starshipAnimation = (AnimationDrawable) carImage.getBackground();
-        starshipAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        starshipAnimation.setOneShot(false);
         starshipAnimation.start();
         backgroundAnimation = (AnimationDrawable) img.getBackground();
-        backgroundAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        backgroundAnimation.setOneShot(false);
         backgroundAnimation.start();
         ImageView coin=findViewById(R.id.coin1);
         coin.setBackgroundResource(R.drawable.coin_animation);
         coinAnimation = (AnimationDrawable) coin.getBackground();
-        coinAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        coinAnimation.setOneShot(false);
         coinAnimation.start();
         ImageView obstacle2=findViewById(R.id.obstacle);
         obstacle2.setBackgroundResource(R.drawable.obstacle);
         obstacleAnimation=(AnimationDrawable) coin.getBackground();
-        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.setOneShot(false);
         obstacleAnimation.start();
         initMediaPlayers();
         initViews();
         mediaPlayerg.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                // Воспроизведение заново, когда трек заканчивается
+
                 mp.start();
             }
         });
@@ -142,15 +142,13 @@ public class lvl2 extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Установка полупрозрачного цвета при нажатии
                     button.setAlpha(0.5f);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    // Возврат к обычному виду после отпускания или отмены
                     button.setAlpha(1.0f);
-                    // Выполнение действия при отпускании
+
                     action.run();
                 }
-                return true; // Мы обработали событие
+                return true;
             }
         });
     }
@@ -158,7 +156,6 @@ public class lvl2 extends AppCompatActivity {
         moveCounterTextView.setText(String.valueOf(moveCounter));
         if(moveCarFastc){
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
-            // Увеличиваем его на 25(да да +12=25 без вопросов)
             int newCount = currentCount + 12;
             moveCounterTextView.setText(String.valueOf(newCount));
         }
@@ -166,17 +163,14 @@ public class lvl2 extends AppCompatActivity {
     private void incrementMoveCounter() {
         if (!isGameOver) {
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
-            // Увеличиваем его на 25
             int newCount = currentCount + 12;
-            moveCounter += 12; // Прибавляем 25 к счетчику перемещений
-            updateMoveCounter(moveCounter); // Обновляем TextView счетчика перемещений
+            moveCounter += 12;
+            updateMoveCounter(moveCounter);
         }
     }
     private void moveCarFast() {
         if (!isGameOver) {
-            // Сохраняем исходные координаты carImage
             initialX = carImage.getX();
-            // Перемещаем ImageView быстро вправо
             carImage.animate()
                     .translationXBy(1500)
                     .setDuration(500)
@@ -215,7 +209,6 @@ public class lvl2 extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Освобождение ресурсов MediaPlayer
         if (mediaPlayerg != null) {
             mediaPlayerg.release();
             mediaPlayerg = null;
@@ -239,18 +232,15 @@ public class lvl2 extends AppCompatActivity {
         @Override
         public void run() {
             if (coin != null) {
-                checkCollisionWithCoin(coin); // Проверяем столкновение
+                checkCollisionWithCoin(coin);
             }
-            // Запланировать следующее выполнение через 10 миллисекунд
             coinGenerationHandler.postDelayed(this, 10);
         }
     };
     public void startCollisionCheck() {
-        // Запустить проверку столкновения с монеткой каждые 10 миллисекунд
         coinGenerationHandler.postDelayed(checkCollisionRunnable, 10);
     }
     public void stopCollisionCheck() {
-        // Остановить проверку столкновения
         coinGenerationHandler.removeCallbacks(checkCollisionRunnable);
     }
     private void initMediaPlayers() {
@@ -310,10 +300,9 @@ public class lvl2 extends AppCompatActivity {
         obstacle.setLayoutParams(params);
         relativeLayout.addView(obstacle);
 
-        // Установка анимации для ImageView объекта
         obstacle.setBackgroundResource(R.drawable.obstacle);
         obstacleAnimation = (AnimationDrawable) obstacle.getBackground();
-        obstacleAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+        obstacleAnimation.setOneShot(false);
         obstacleAnimation.start();
 
         animateObstacle(obstacle, relativeLayout);
@@ -361,23 +350,16 @@ public class lvl2 extends AppCompatActivity {
         }
     }
     private void explodeAnimation(ImageView view) {
-        // Загружаем анимацию взрыва
         AnimationDrawable explodeAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.explosion_animation);
-        // Устанавливаем анимацию как фон для view
         view.setBackground(explodeAnimation);
-        // Запускаем анимацию
         explodeAnimation.start();
-
-        // Останавливаем анимацию через определенное время
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Останавливаем анимацию
                 explodeAnimation.stop();
-                // Сбрасываем фон, чтобы удалить анимацию
                 view.setBackground(null);
             }
-        }, 2000); // Время, в течение которого анимация будет отображаться
+        }, 2000);
     }
 
 
@@ -394,7 +376,7 @@ public class lvl2 extends AppCompatActivity {
         obstacleHandler.removeCallbacks(createObstacleRunnable);
         coinGenerationHandler.removeCallbacks(createObstacleRunnable);
         if (moveCounterHandler != null) {
-            moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
+            moveCounterHandler.removeCallbacksAndMessages(null);
         }
         if (backgroundAnimation != null) {
             backgroundAnimation.stop();
@@ -407,7 +389,6 @@ public class lvl2 extends AppCompatActivity {
         mediaPlayerf.start();
     }
     private void restartLevel() {
-        // Завершаем текущую активность и запускаем ее заново
         finish();
         startActivity(getIntent());
     }
@@ -461,12 +442,11 @@ public class lvl2 extends AppCompatActivity {
             coin = new ImageView(this);
             RelativeLayout.LayoutParams params = createCoinLayoutParams();
             coin.setLayoutParams(params);
-            relativeLayout.addView(coin); // Добавляем монету в relativeLayout
+            relativeLayout.addView(coin);
 
-            // Устанавливаем анимацию для ImageView монетки
             coin.setImageResource(R.drawable.coin_animation);
             coinAnimation = (AnimationDrawable) coin.getDrawable();
-            coinAnimation.setOneShot(false); // Устанавливаем флаг для бесконечной анимации
+            coinAnimation.setOneShot(false);
             coinAnimation.start();
 
             animateCoin(coin);
@@ -483,13 +463,13 @@ public class lvl2 extends AppCompatActivity {
     }
     private void animateCoin(final ImageView coin) {
         coin.animate()
-                .translationX(-relativeLayout.getWidth() - coin.getWidth()) // Устанавливаем конечную позицию за пределами экрана
+                .translationX(-relativeLayout.getWidth() - coin.getWidth())
                 .setDuration(3000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(android.animation.Animator animation) {
                         stopCollisionCheck();
-                        checkCollisionWithCoin(coin); // Проверяем столкновение при окончании анимации
+                        checkCollisionWithCoin(coin);
                     }
                 })
                 .start();
@@ -499,7 +479,7 @@ public class lvl2 extends AppCompatActivity {
         if (isColliding(carImage, coin) && relativeLayout.indexOfChild(coin) != -1) {
             incrementCoinCounter();
             mediaPlayerc.start();
-            relativeLayout.removeView(coin); // Удаляем монету только при соприкосновении и если она еще существует в relativeLayout
+            relativeLayout.removeView(coin);
         }
     }
 
