@@ -2,7 +2,7 @@ package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;//для анимаций
+import android.animation.Animator;//.для анимаций
 import android.animation.AnimatorListenerAdapter;//для анимаций
 import android.animation.ValueAnimator;//для анимаций
 import android.content.Intent;//для перехода в дургие активности
