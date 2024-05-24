@@ -27,6 +27,7 @@ public class Pausemenu extends AppCompatActivity {
         ImageButton options = findViewById(R.id.settingsbt1);
         ImageButton resume = findViewById(R.id.resumebutton2);
         ImageButton exbt = findViewById(R.id.exbt2);
+        ImageButton bkbtp= findViewById(R.id.bkbtp);
 
         final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.5F);
         buttonClick.setDuration(0);
@@ -53,7 +54,13 @@ public class Pausemenu extends AppCompatActivity {
                             Intent intent = new Intent(Pausemenu.this, areusure.class);
                             startActivity(intent);
                             mediaPlayere.start();
-                        } else if (v.getId() == R.id.resumebutton2) {
+                        }
+                        else if (v.getId() == R.id.bkbtp) {
+                            Intent intent = new Intent(Pausemenu.this, LevelMenu.class);
+                            startActivity(intent);
+                            mediaPlayere.start();
+                        }
+                        else if (v.getId() == R.id.resumebutton2) {
                             // Переход обратно в уровень
                             Intent intent = getIntent();
                             String levelClassName = intent.getStringExtra("levelClass");
@@ -78,6 +85,7 @@ public class Pausemenu extends AppCompatActivity {
         options.setOnTouchListener(changeAlphaOnTouch);
         exbt.setOnTouchListener(changeAlphaOnTouch);
         resume.setOnTouchListener(changeAlphaOnTouch);
+        bkbtp.setOnTouchListener(changeAlphaOnTouch);
     }
 
     private void startLevelActivity(Class<?> levelClass) {

@@ -8,16 +8,22 @@
 
     <ImageView
         android:id="@+id/imageView786"
-        android:layout_width="690dp"
-        android:layout_height="378dp"
-        app:srcCompat="@drawable/pausedgamemenu"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="734dp"
+        android:layout_height="427dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pausedgamemenu" />
 
     <ImageButton
         android:id="@+id/settingsbt1"
         android:layout_width="92dp"
         android:layout_height="85dp"
+        android:background="@android:color/transparent"
         android:onClick="setting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +31,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286"
-        app:srcCompat="@drawable/settingsbutton"
-        android:background="@android:color/transparent"/>
+        app:srcCompat="@drawable/settingsbutton" />
 
     <ImageButton
         android:id="@+id/resumebutton2"
         android:layout_width="91dp"
         android:layout_height="85dp"
+        android:background="@android:color/transparent"
         android:onClick="bAck"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,13 +45,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.284"
-        app:srcCompat="@drawable/resumebutton"
-        android:background="@android:color/transparent"/>
+        app:srcCompat="@drawable/resumebutton" />
 
     <ImageButton
         android:id="@+id/exbt2"
         android:layout_width="87dp"
         android:layout_height="82dp"
+        android:background="@android:color/transparent"
         android:onClick="end2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +59,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.281"
-        app:srcCompat="@drawable/exit"
+        app:srcCompat="@drawable/exit" />
+
+    <ImageButton
+        android:id="@+id/bkbtp"
+        android:layout_width="92dp"
+        android:layout_height="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resumebutton2"
+        app:layout_constraintVertical_bias="0.268"
+        app:srcCompat="@drawable/backbutton"
         android:background="@android:color/transparent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
