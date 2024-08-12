@@ -1,4 +1,5 @@
 package com.example.project;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -8,8 +9,20 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.example.project.ApiClient;
+import com.example.project.LevelMenu;
+import com.example.project.Options;
+import com.example.project.R;
+import com.example.project.areusure;
+
+import org.json.JSONObject;
 
 public class MainMenu extends AppCompatActivity {
+    private ApiClient apiClient;
+
     MediaPlayer mediaPlayerm;
     MediaPlayer mediaPlayere;
     MediaPlayer mediaPlayers;
@@ -20,6 +33,8 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         mediaPlayerm = MediaPlayer.create(this, R.raw.playbuttonsound);
         mediaPlayere = MediaPlayer.create(this, R.raw.endsound);
         mediaPlayers = MediaPlayer.create(this, R.raw.settingsbuttonsound);
