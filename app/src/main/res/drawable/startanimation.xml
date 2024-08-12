@@ -1,0 +1,22 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true">
+    <item android:drawable="@drawable/screen1" android:duration="100" />
+    <item android:drawable="@drawable/screen2" android:duration="100" />
+    <item android:drawable="@drawable/screen3" android:duration="100" />
+    <item android:drawable="@drawable/screen4" android:duration="100" />
+    <item android:drawable="@drawable/screen5" android:duration="100" />
+    <item android:drawable="@drawable/screen6" android:duration="100" />
+    <item android:drawable="@drawable/screen7" android:duration="100" />
+    <item android:drawable="@drawable/screen8" android:duration="100" />
+    <item android:drawable="@drawable/screen9" android:duration="100" />
+    <item android:drawable="@drawable/screen10" android:duration="100" />
+    <item android:drawable="@drawable/screen11" android:duration="100" />
+    <item android:drawable="@drawable/screen12" android:duration="100" />
+    <item android:drawable="@drawable/screen13" android:duration="100" />
+    <item android:drawable="@drawable/screen14" android:duration="100" />
+    <item android:drawable="@drawable/screen15" android:duration="100" />
+    <item android:drawable="@drawable/screen16" android:duration="100" />
+    <item android:drawable="@drawable/screen17" android:duration="100" />
+    <item android:drawable="@drawable/screen18" android:duration="100" />
+    <item android:drawable="@drawable/screen19" android:duration="100" />
+    <item android:drawable="@drawable/screen20" android:duration="100" />
+</animation-list>

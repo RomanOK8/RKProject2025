@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.ACCEPT_HANDOVER">
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
-        />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,8 +17,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
+
+        <!-- SplashScreenActivity как первая активность -->
+        <activity android:name=".SplashScreenActivity"
+            android:screenOrientation="landscape"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- LoginActivity без intent-filter для MAIN и LAUNCHER -->
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="landscape"
+            android:exported="true" />
+
+        <!-- Другие Activity -->
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="landscape"
+            android:exported="false"/>
         <activity
             android:name=".Pausemenu"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".education"
             android:exported="false"
             android:screenOrientation="landscape"/>
         <activity
@@ -54,13 +81,15 @@
         <activity
             android:name=".MainMenu"
             android:exported="true"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".WarningFragment"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".CodeInputFragment"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

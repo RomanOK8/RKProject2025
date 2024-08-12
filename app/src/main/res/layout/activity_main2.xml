@@ -22,6 +22,17 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
+    <ImageButton
+        android:id="@+id/education"
+        android:layout_width="78dp"
+        android:layout_height="77dp"
+        android:onClick="LVLT"
+        android:layout_marginTop="0dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/educationbutton"
+    android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/exbt2"
@@ -134,5 +145,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settingsbutton"
         android:background="@android:color/transparent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

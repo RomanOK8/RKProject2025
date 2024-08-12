@@ -1,7 +1,6 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,7 +8,6 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,46 +23,28 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class lvl2 extends AppCompatActivity {
-    private AnimationDrawable starshipAnimation;
-    private AnimationDrawable coinAnimation;
-    private AnimationDrawable obstacleAnimation;
-    private MediaPlayer mediaPlayerac;
-    private MediaPlayer mediaPlayerw;
-    private MediaPlayer mediaPlayerf;
-    private MediaPlayer mediaPlayerg;
-    private MediaPlayer mediaPlayerc;
-    private MediaPlayer mediaPlayere;
-    private MediaPlayer mediaPlayera;
-    private MediaPlayer mediaPlayerud;
-    private ImageView carImage;
-    private float screenHeight;
-    private TextView moveCounterTextView;
-    private Handler moveCounterHandler;
-    private TextView gameOverTextView;
-    private Color gameOverColor;
-    private Handler obstacleHandler;
-    private Runnable createObstacleRunnable;
+    private AnimationDrawable starshipAnimation, coinAnimation, obstacleAnimation, backgroundAnimation;
+    private MediaPlayer mediaPlayerac, mediaPlayerw, mediaPlayerf, mediaPlayerg, mediaPlayerc, mediaPlayere, mediaPlayera, mediaPlayerud;
+    private ImageView carImage, coin;
+    private TextView moveCounterTextView, gameOverTextView, coinCounterTextView;
+    private float screenHeight, initialX;
+    private Handler moveCounterHandler, obstacleHandler, coinGenerationHandler, shotHandler;
+    private Runnable createObstacleRunnable, shotRunnable;
     private Button retryButton;
-    private boolean isGameOver = false;
-
-    private int coinCounter = 0;
-    private TextView coinCounterTextView;
-    private ImageView coin;
+    private boolean isGameOver = false, moveCarFastc = false, canShoot = true;
     private RelativeLayout relativeLayout;
-    private Handler coinGenerationHandler;
-    private AnimationDrawable backgroundAnimation;
     private long lastClickTime = 0;
-    private float initialX;
-    private int moveCounter = 0;
-    private boolean moveCarFastc=false;
-    private int winscore=609;
+    private int moveCounter = 0, winscore = 599, coinCounter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lvl2);
-        ImageView img = (ImageView) findViewById(R.id.swing_play);
+
+        ImageView img = findViewById(R.id.swing_play);
         img.setBackgroundResource(R.drawable.lvl2_background);
-        ImageView carImage = findViewById(R.id.CarImage);
+
+        carImage = findViewById(R.id.CarImage);
         carImage.setBackgroundResource(R.drawable.starship_animation);
         starshipAnimation = (AnimationDrawable) carImage.getBackground();
         starshipAnimation.setOneShot(false);
@@ -73,29 +52,32 @@ public class lvl2 extends AppCompatActivity {
         backgroundAnimation = (AnimationDrawable) img.getBackground();
         backgroundAnimation.setOneShot(false);
         backgroundAnimation.start();
-        ImageView coin=findViewById(R.id.coin1);
+
+        coin = findViewById(R.id.coin1);
         coin.setBackgroundResource(R.drawable.coin_animation);
         coinAnimation = (AnimationDrawable) coin.getBackground();
         coinAnimation.setOneShot(false);
         coinAnimation.start();
-        ImageView obstacle2=findViewById(R.id.obstacle);
+
+        ImageView obstacle2 = findViewById(R.id.obstacle);
         obstacle2.setBackgroundResource(R.drawable.obstacle);
-        obstacleAnimation=(AnimationDrawable) coin.getBackground();
+        obstacleAnimation = (AnimationDrawable) obstacle2.getBackground();
         obstacleAnimation.setOneShot(false);
         obstacleAnimation.start();
+
         initMediaPlayers();
         initViews();
+
         mediaPlayerg.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-
                 mp.start();
             }
         });
+
         coinGenerationHandler = new Handler();
         relativeLayout = findViewById(R.id.relativeLayout2);
         coinCounterTextView = findViewById(R.id.coinCounterTextView);
-        coin=findViewById(R.id.coin1);
         updateCoinCounter(coinCounter);
 
         retryButton = findViewById(R.id.retryButton);
@@ -107,36 +89,62 @@ public class lvl2 extends AppCompatActivity {
                 restartLevel();
             }
         });
+
         initialX = carImage.getX();
-        ImageButton accelerator = findViewById(R.id.accelerator);
 
-
-        View pauseButton = findViewById(R.id.PauseButtonlvl2);
+        View pauseButton = findViewById(R.id.PauseButtonlvl1);
         View upButton = findViewById(R.id.UpButtonlvl1);
         View downButton = findViewById(R.id.downbutton);
         View acceleratorButton = findViewById(R.id.accelerator);
         View retryButton = findViewById(R.id.retryButton);
-
+        View shootButton = findViewById(R.id.shootButton);
+        View shieldButton = findViewById(R.id.shieldButton);
         setTouchListenerForButton(pauseButton, () -> pauseButton(pauseButton));
         setTouchListenerForButton(upButton, () -> upButton(upButton));
         setTouchListenerForButton(downButton, () -> downButton(downButton));
-        setTouchListenerForButton(acceleratorButton, () -> acceleratorButton (accelerator));
+        setTouchListenerForButton(acceleratorButton, () -> acceleratorButton(acceleratorButton));
         setTouchListenerForButton(retryButton, () -> restartLevel());
-
+        setTouchListenerForButton(shootButton, () -> createShot());
+        setTouchListenerForButton(shieldButton, () -> activateShield());
 
         startObstacleCreation();
         startMoveCounter();
         startCoinCreation();
         mediaPlayerg.start();
     }
+    private boolean isShieldActive = false;
+    private Handler shieldHandler = new Handler();
+    private Runnable deactivateShieldRunnable = new Runnable() {
+        @Override
+        public void run() {
+            deactivateShield();
+        }
+    };
+    private void activateShield() {
+        if (!isShieldActive) {
+            isShieldActive = true;
+            carImage.setBackgroundResource(R.drawable.starshipwithshield_animation);
+            starshipAnimation = (AnimationDrawable) carImage.getBackground();
+            starshipAnimation.start();
+            shieldHandler.postDelayed(deactivateShieldRunnable, 5000);
+        }
+    }
+    private void deactivateShield() {
+        isShieldActive = false;
+        carImage.setBackgroundResource(R.drawable.starship_animation);
+        starshipAnimation = (AnimationDrawable) carImage.getBackground();
+        starshipAnimation.start();
+    }
+
     public void acceleratorButton(View view) {
         long clickTime = System.currentTimeMillis();
-        if (clickTime - lastClickTime >= 10000) { // Разрешаем нажать раз в =10 секунд
+        if (clickTime - lastClickTime >= 10000) {
             lastClickTime = clickTime;
             incrementMoveCounter();
             moveCarFast();
         }
     }
+
     private void setTouchListenerForButton(final View button, final Runnable action) {
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -145,21 +153,22 @@ public class lvl2 extends AppCompatActivity {
                     button.setAlpha(0.5f);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     button.setAlpha(1.0f);
-
                     action.run();
                 }
                 return true;
             }
         });
     }
+
     private void updateMoveCounter(int moveCounter) {
         moveCounterTextView.setText(String.valueOf(moveCounter));
-        if(moveCarFastc){
+        if (moveCarFastc) {
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
             int newCount = currentCount + 12;
             moveCounterTextView.setText(String.valueOf(newCount));
         }
     }
+
     private void incrementMoveCounter() {
         if (!isGameOver) {
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
@@ -168,6 +177,7 @@ public class lvl2 extends AppCompatActivity {
             updateMoveCounter(moveCounter);
         }
     }
+
     private void moveCarFast() {
         if (!isGameOver) {
             initialX = carImage.getX();
@@ -177,7 +187,6 @@ public class lvl2 extends AppCompatActivity {
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            // Возвращаем ImageView на исходную позицию
                             carImage.animate()
                                     .x(initialX)
                                     .setDuration(500)
@@ -188,12 +197,13 @@ public class lvl2 extends AppCompatActivity {
         }
         mediaPlayerac.start();
     }
+
     private void gameWin() {
         isGameOver = true;
         obstacleHandler.removeCallbacks(createObstacleRunnable);
         coinGenerationHandler.removeCallbacks(createObstacleRunnable);
         if (moveCounterHandler != null) {
-            moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
+            moveCounterHandler.removeCallbacksAndMessages(null);
         }
         if (backgroundAnimation != null) {
             backgroundAnimation.stop();
@@ -206,6 +216,7 @@ public class lvl2 extends AppCompatActivity {
         mediaPlayerg.stop();
         mediaPlayerw.start();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -218,16 +229,18 @@ public class lvl2 extends AppCompatActivity {
         }
         if (backgroundAnimation != null) {
             backgroundAnimation.stop();
+            backgroundAnimation = null;
         }
         if (coinAnimation != null) {
             coinAnimation.stop();
+            coinAnimation = null;
         }
         if (obstacleAnimation != null) {
             obstacleAnimation.stop();
+            obstacleAnimation = null;
         }
-
-
     }
+
     private Runnable checkCollisionRunnable = new Runnable() {
         @Override
         public void run() {
@@ -237,21 +250,24 @@ public class lvl2 extends AppCompatActivity {
             coinGenerationHandler.postDelayed(this, 10);
         }
     };
+
     public void startCollisionCheck() {
         coinGenerationHandler.postDelayed(checkCollisionRunnable, 10);
     }
+
     public void stopCollisionCheck() {
         coinGenerationHandler.removeCallbacks(checkCollisionRunnable);
     }
+
     private void initMediaPlayers() {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
-        mediaPlayere=MediaPlayer.create(this, R.raw.crashsound);
-        mediaPlayerc=MediaPlayer.create(this, R.raw.coinsound);
-        mediaPlayerg=MediaPlayer.create(this, R.raw.lvl2music);
-        mediaPlayerf=MediaPlayer.create(this, R.raw.failsound);
-        mediaPlayerw=MediaPlayer.create(this, R.raw.winsound);
-        mediaPlayerac=MediaPlayer.create(this, R.raw.acceleratorsound);
+        mediaPlayere = MediaPlayer.create(this, R.raw.crashsound);
+        mediaPlayerc = MediaPlayer.create(this, R.raw.coinsound);
+        mediaPlayerg = MediaPlayer.create(this, R.raw.lvl2music);
+        mediaPlayerf = MediaPlayer.create(this, R.raw.failsound);
+        mediaPlayerw = MediaPlayer.create(this, R.raw.winsound);
+        mediaPlayerac = MediaPlayer.create(this, R.raw.acceleratorsound);
     }
 
     private void initViews() {
@@ -269,22 +285,20 @@ public class lvl2 extends AppCompatActivity {
             @Override
             public void run() {
                 createObstacle();
-                obstacleHandler.postDelayed(this, 6000);
+                obstacleHandler.postDelayed(this, 7000);
             }
         };
-        obstacleHandler.postDelayed(createObstacleRunnable, 6000);
+        obstacleHandler.postDelayed(createObstacleRunnable, 7000);
     }
 
     private void startMoveCounter() {
         moveCounterHandler = new Handler();
         final Runnable moveCounterRunnable = new Runnable() {
-
-
             @Override
             public void run() {
                 moveCounter++;
                 updateMoveCounter(moveCounter);
-                if (moveCounter >winscore) {
+                if (moveCounter > winscore) {
                     gameWin();
                 } else {
                     moveCounterHandler.postDelayed(this, 250);
@@ -299,7 +313,6 @@ public class lvl2 extends AppCompatActivity {
         RelativeLayout.LayoutParams params = createObstacleLayoutParams();
         obstacle.setLayoutParams(params);
         relativeLayout.addView(obstacle);
-
         obstacle.setBackgroundResource(R.drawable.obstacle);
         obstacleAnimation = (AnimationDrawable) obstacle.getBackground();
         obstacleAnimation.setOneShot(false);
@@ -344,15 +357,22 @@ public class lvl2 extends AppCompatActivity {
 
     private void checkCollisionWithObstacle(ImageView obstacle) {
         if (isColliding(carImage, obstacle)) {
-            gameOver();
-            explodeAnimation(carImage);
-            mediaPlayere.start();
+            if (isShieldActive) {
+                explodeAnimation(obstacle);
+                relativeLayout.removeView(obstacle);
+            } else {
+                gameOver();
+                explodeAnimation(carImage);
+                mediaPlayere.start();
+            }
         }
     }
+
     private void explodeAnimation(ImageView view) {
         AnimationDrawable explodeAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.explosion_animation);
         view.setBackground(explodeAnimation);
         explodeAnimation.start();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -361,7 +381,6 @@ public class lvl2 extends AppCompatActivity {
             }
         }, 2000);
     }
-
 
     private boolean isColliding(ImageView imageView1, ImageView imageView2) {
         Rect rect1 = new Rect();
@@ -388,15 +407,15 @@ public class lvl2 extends AppCompatActivity {
         mediaPlayerg.stop();
         mediaPlayerf.start();
     }
+
     private void restartLevel() {
         finish();
         startActivity(getIntent());
     }
 
-
     public void pauseButton(View v) {
         Intent intent = new Intent(this, Pausemenu.class);
-        intent.putExtra("levelClass", lvl2.class.getName());
+        intent.putExtra("levelClass", lvl1.class.getName());
         startActivity(intent);
         mediaPlayera.start();
         mediaPlayerg.stop();
@@ -421,19 +440,17 @@ public class lvl2 extends AppCompatActivity {
         return newY > 0 && newY < screenHeight - carImage.getHeight();
     }
 
-
-
     private void startCoinCreation() {
         if (!isGameOver) {
-            Handler coinGenerationHandler = new Handler();
+            coinGenerationHandler = new Handler();
             Runnable createCoinRunnable = new Runnable() {
                 @Override
                 public void run() {
                     createCoin();
-                    coinGenerationHandler.postDelayed(this, 10500);
+                    coinGenerationHandler.postDelayed(this, 10000);
                 }
             };
-            coinGenerationHandler.postDelayed(createCoinRunnable, 10500);
+            coinGenerationHandler.postDelayed(createCoinRunnable, 10000);
         }
     }
 
@@ -443,7 +460,6 @@ public class lvl2 extends AppCompatActivity {
             RelativeLayout.LayoutParams params = createCoinLayoutParams();
             coin.setLayoutParams(params);
             relativeLayout.addView(coin);
-
             coin.setImageResource(R.drawable.coin_animation);
             coinAnimation = (AnimationDrawable) coin.getDrawable();
             coinAnimation.setOneShot(false);
@@ -453,6 +469,7 @@ public class lvl2 extends AppCompatActivity {
             startCollisionCheck();
         }
     }
+
     private RelativeLayout.LayoutParams createCoinLayoutParams() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -461,13 +478,14 @@ public class lvl2 extends AppCompatActivity {
         params.topMargin = getRandomYPosition();
         return params;
     }
+
     private void animateCoin(final ImageView coin) {
         coin.animate()
                 .translationX(-relativeLayout.getWidth() - coin.getWidth())
                 .setDuration(3000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationEnd(android.animation.Animator animation) {
+                    public void onAnimationEnd(Animator animation) {
                         stopCollisionCheck();
                         checkCollisionWithCoin(coin);
                     }
@@ -477,13 +495,13 @@ public class lvl2 extends AppCompatActivity {
 
     private void checkCollisionWithCoin(ImageView coin) {
         if (isColliding(carImage, coin) && relativeLayout.indexOfChild(coin) != -1) {
-            incrementCoinCounter();
+            incrementCoinCounter(5);
             mediaPlayerc.start();
             relativeLayout.removeView(coin);
         }
     }
 
-    private void incrementCoinCounter() {
+    private void incrementCoinCounter(int i) {
         coinCounter++;
         updateCoinCounter(coinCounter);
     }
@@ -492,4 +510,115 @@ public class lvl2 extends AppCompatActivity {
         coinCounterTextView.setText(String.valueOf(coinCounter));
     }
 
+    // Метод для создания выстрела
+    private void createShot() {
+        if (!isGameOver && canShoot) {
+            canShoot = false;
+            ImageView shot = new ImageView(this);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            params.topMargin = (int) carImage.getY();
+            shot.setLayoutParams(params);
+            shot.setImageResource(R.drawable.shoti);
+            relativeLayout.addView(shot);
+
+            animateShot(shot);
+            reloadShot();
+        }
+    }
+
+    // Метод для анимации выстрела
+    private void animateShot(final ImageView shot) {
+        shot.animate()
+                .translationXBy(relativeLayout.getWidth())
+                .setDuration(1000)
+                .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        checkShotCollisionWithObstacle(shot);
+                    }
+                })
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        relativeLayout.removeView(shot);
+                    }
+                })
+                .start();
+    }
+
+    // Метод для перезарядки выстрела
+    private void reloadShot() {
+        shotHandler = new Handler();
+        shotRunnable = new Runnable() {
+            @Override
+            public void run() {
+                canShoot = true;
+            }
+        };
+        shotHandler.postDelayed(shotRunnable, 3000);
+    }
+
+    // Метод для проверки столкновения выстрела с препятствием
+    private void checkShotCollisionWithObstacle(ImageView shot) {
+        for (int i = 0; i < relativeLayout.getChildCount(); i++) {
+            View view = relativeLayout.getChildAt(i);
+            if (view instanceof ImageView && view.getBackground() instanceof AnimationDrawable) {
+                AnimationDrawable animation = (AnimationDrawable) view.getBackground();
+                if (animation == obstacleAnimation && isColliding(shot, (ImageView) view)) {
+                    explodeAnimation((ImageView) view);
+                    relativeLayout.removeView(view);
+                    incrementCoinCounter(5);
+                }
+            }
+        }
+    }
+
+    // Метод для создания выстрела из препятствия
+    private void createObstacleShot(ImageView obstacle) {
+        if (!isGameOver && new Random().nextDouble() < 0.66) {
+            ImageView shot = new ImageView(this);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            params.topMargin = (int) obstacle.getY();
+            shot.setLayoutParams(params);
+            shot.setImageResource(R.drawable.shoti);
+            relativeLayout.addView(shot);
+
+            animateObstacleShot(shot);
+        }
+    }
+
+    // Метод для анимации выстрела из препятствия
+    private void animateObstacleShot(final ImageView shot) {
+        shot.animate()
+                .translationXBy(-relativeLayout.getWidth())
+                .setDuration(1000)
+                .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        checkShotCollisionWithCar(shot);
+                    }
+                })
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        relativeLayout.removeView(shot);
+                    }
+                })
+                .start();
+    }
+
+    // Метод для проверки столкновения выстрела из препятствия с carImage
+    private void checkShotCollisionWithCar(ImageView shot) {
+        if (isColliding(shot, carImage)) {
+            gameOver();
+            explodeAnimation(carImage);
+            mediaPlayere.start();
+        }
+    }
 }

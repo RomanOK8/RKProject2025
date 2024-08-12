@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
+    <item android:drawable="@drawable/starshipimagewithshield1" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield2" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield3" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield5" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield6" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield7" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield8" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield9" android:duration="75" />
+    <item android:drawable="@drawable/starshipimagewithshield10" android:duration="75" />
+</animation-list>

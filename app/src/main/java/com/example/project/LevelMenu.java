@@ -45,7 +45,7 @@ public class LevelMenu extends AppCompatActivity {
         View startLevel5Button = findViewById(R.id.imageButton8);
         View settingsButton = findViewById(R.id.imageButton4);
         View endButton = findViewById(R.id.exbt2);
-
+        View startLevelTraneButton = findViewById(R.id.education);
         setTouchListenerForButton(backButton, () -> startNewActivity(backButton));
         setTouchListenerForButton(startLevel1Button, () -> LVLI(startLevel1Button));
         setTouchListenerForButton(startLevel2Button, () -> LVLII(startLevel2Button));
@@ -54,6 +54,7 @@ public class LevelMenu extends AppCompatActivity {
         setTouchListenerForButton(startLevel5Button, () -> LVLV(startLevel5Button));
         setTouchListenerForButton(settingsButton, () -> settings(settingsButton));
         setTouchListenerForButton(endButton, () -> end(endButton));
+        setTouchListenerForButton(startLevelTraneButton, () -> LVLT(startLevelTraneButton));
     }
     private void setTouchListenerForButton(final View button, final Runnable action) {
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -80,6 +81,12 @@ public class LevelMenu extends AppCompatActivity {
             mediaPlayerp.release();
             mediaPlayerp = null;
         }
+    }
+    public void LVLT(View V){
+        Intent intent=new Intent(this, education.class);
+        startActivity(intent);
+        mediaPlayere.start();
+        mediaPlayerp.stop();
     }
     public void startNewActivity(View v){
         Intent intent=new Intent(this, MainMenu.class);
