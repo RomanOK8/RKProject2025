@@ -150,17 +150,6 @@
             android:text="Coins"
             android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/shieldButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="75dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/shield_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/shootButton" />
         <TextView
             android:id="@+id/moveCountertxt"
             android:layout_width="70dp"
@@ -226,5 +215,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@android:color/transparent"/>
-
+    <ImageButton
+        android:id="@+id/shieldButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="75dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/shield_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/shootButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
