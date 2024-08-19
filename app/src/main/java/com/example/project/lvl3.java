@@ -60,7 +60,7 @@ public class lvl3 extends AppCompatActivity {
     private float initialX;
     private int moveCounter = 0;
     private boolean moveCarFastc=false;
-    private int winscore=50;
+    private int winscore=599;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

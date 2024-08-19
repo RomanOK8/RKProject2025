@@ -36,7 +36,7 @@ public class lvl1 extends AppCompatActivity {
     private boolean isGameOver = false, moveCarFastc = false, canShoot = true;
     private RelativeLayout relativeLayout;
     private long lastClickTime = 0;
-    private int moveCounter = 0, winscore = 50, coinCounter = 0;
+    private int moveCounter = 0, winscore = 599, coinCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
