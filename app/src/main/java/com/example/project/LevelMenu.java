@@ -3,12 +3,15 @@ package com.example.project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class LevelMenu extends AppCompatActivity {
     MediaPlayer mediaPlayerp;//sadsa
@@ -73,6 +76,25 @@ public class LevelMenu extends AppCompatActivity {
             }
         });
     }
+    private boolean isLevelAvailable(String level) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        switch (level) {
+            case "LVLT":
+                return true;
+            case "LVL1":
+                return sharedPreferences.getBoolean("LVLT", false);
+            case "LVL2":
+                return sharedPreferences.getBoolean("LVL1", false);
+            case "LVL3":
+                return sharedPreferences.getBoolean("LVL2", false);
+            case "LVL4":
+                return sharedPreferences.getBoolean("LVL3", false);
+            case "LVL5":
+                return sharedPreferences.getBoolean("LVL4", false);
+            default:
+                return false;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -81,12 +103,6 @@ public class LevelMenu extends AppCompatActivity {
             mediaPlayerp.release();
             mediaPlayerp = null;
         }
-    }
-    public void LVLT(View V){
-        Intent intent=new Intent(this, education.class);
-        startActivity(intent);
-        mediaPlayere.start();
-        mediaPlayerp.stop();
     }
     public void startNewActivity(View v){
         Intent intent=new Intent(this, MainMenu.class);
@@ -106,34 +122,68 @@ public class LevelMenu extends AppCompatActivity {
         mediaPlayers.start();
         mediaPlayerp.stop();
     }
+    public void LVLT(View V){
+            Intent intent = new Intent(this, education.class);
+            startActivity(intent);
+            mediaPlayere.start();
+            mediaPlayerp.stop();
+    }
+
     public void LVLI(View v){
-        Intent intent=new Intent(this,lvl1.class);
-        startActivity(intent);
-        mediaPlayerm.start();
-        mediaPlayerp.stop();
+        if (isLevelAvailable("LVL1")) {
+            Intent intent = new Intent(this, lvl1.class);
+            startActivity(intent);
+            mediaPlayerm.start();
+            mediaPlayerp.stop();
+        } else {
+            showLevelUnavailableMessage();
+        }
     }
+
     public void LVLII(View v){
-        Intent intent=new Intent(this,lvl2.class);
-        startActivity(intent);
-        mediaPlayerm.start();
-        mediaPlayerp.stop();
+        if (isLevelAvailable("LVL2")) {
+            Intent intent = new Intent(this, lvl2.class);
+            startActivity(intent);
+            mediaPlayerm.start();
+            mediaPlayerp.stop();
+        } else {
+            showLevelUnavailableMessage();
+        }
     }
+
     public void LVLIII(View v){
-        Intent intent=new Intent(this,lvl3.class);
-        startActivity(intent);
-        mediaPlayerm.start();
-        mediaPlayerp.stop();
+        if (isLevelAvailable("LVL3")) {
+            Intent intent = new Intent(this, lvl3.class);
+            startActivity(intent);
+            mediaPlayerm.start();
+            mediaPlayerp.stop();
+        } else {
+            showLevelUnavailableMessage();
+        }
     }
+
     public void LVLIV(View v){
-        Intent intent=new Intent(this,lvl4.class);
-        startActivity(intent);
-        mediaPlayerm.start();
-        mediaPlayerp.stop();
+        if (isLevelAvailable("LVL4")) {
+            Intent intent = new Intent(this, lvl4.class);
+            startActivity(intent);
+            mediaPlayerm.start();
+            mediaPlayerp.stop();
+        } else {
+            showLevelUnavailableMessage();
+        }
     }
+
     public void LVLV(View v){
-        Intent intent=new Intent(this,lvl5.class);
-        startActivity(intent);
-        mediaPlayerm.start();
-        mediaPlayerp.stop();
+        if (isLevelAvailable("LVL5")) {
+            Intent intent = new Intent(this, lvl5.class);
+            startActivity(intent);
+            mediaPlayerm.start();
+            mediaPlayerp.stop();
+        } else {
+            showLevelUnavailableMessage();
+        }
+    }
+    private void showLevelUnavailableMessage() {
+        Toast.makeText(this, "Pass past level you haven't got an access", Toast.LENGTH_SHORT).show();
     }
 }

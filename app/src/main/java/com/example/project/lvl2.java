@@ -6,12 +6,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +36,7 @@ public class lvl2 extends AppCompatActivity {
     private boolean isGameOver = false, moveCarFastc = false, canShoot = true;
     private RelativeLayout relativeLayout;
     private long lastClickTime = 0;
-    private int moveCounter = 0, winscore = 599, coinCounter = 0;
+    private int moveCounter = 0, winscore = 50, coinCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,13 +199,18 @@ public class lvl2 extends AppCompatActivity {
         }
         mediaPlayerac.start();
     }
-
+    private void saveLevelCompletion(String level) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(level, true);
+        editor.apply();
+    }
     private void gameWin() {
         isGameOver = true;
         obstacleHandler.removeCallbacks(createObstacleRunnable);
         coinGenerationHandler.removeCallbacks(createObstacleRunnable);
         if (moveCounterHandler != null) {
-            moveCounterHandler.removeCallbacksAndMessages(null);
+            moveCounterHandler.removeCallbacksAndMessages(null); // Остановить счетчик перемещений
         }
         if (backgroundAnimation != null) {
             backgroundAnimation.stop();
@@ -215,6 +222,7 @@ public class lvl2 extends AppCompatActivity {
         retryButton.setVisibility(View.VISIBLE);
         mediaPlayerg.stop();
         mediaPlayerw.start();
+        saveLevelCompletion("LVL2");
     }
 
     @Override

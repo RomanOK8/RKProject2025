@@ -7,6 +7,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -14,6 +15,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +60,7 @@ public class education extends AppCompatActivity {
     private float initialX;
     private int moveCounter = 0;
     private boolean moveCarFastc=false;
-    private int winscore=101;
+    private int winscore=50;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,6 +190,12 @@ public class education extends AppCompatActivity {
         }
         mediaPlayerac.start();
     }
+    private void saveLevelCompletion(String level) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(level, true);
+        editor.apply();
+    }
     private void gameWin() {
         isGameOver = true;
         obstacleHandler.removeCallbacks(createObstacleRunnable);
@@ -205,6 +213,7 @@ public class education extends AppCompatActivity {
         retryButton.setVisibility(View.VISIBLE);
         mediaPlayerg.stop();
         mediaPlayerw.start();
+        saveLevelCompletion("LVLT");
     }
     @Override
     protected void onDestroy() {
