@@ -1,11 +1,13 @@
 package com.example.project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,6 +21,8 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -61,10 +65,18 @@ public class education extends AppCompatActivity {
     private int moveCounter = 0;
     private boolean moveCarFastc=false;
     private int winscore=199;
+
+    private SharedPreferences sharedPreferences;
+
+    private boolean allDialogsShown = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         ImageView img = (ImageView) findViewById(R.id.swing_play);
         img.setBackgroundResource(R.drawable.lvl2_background);
         ImageView carImage = findViewById(R.id.CarImage);
@@ -125,13 +137,111 @@ public class education extends AppCompatActivity {
         setTouchListenerForButton(acceleratorButton, () -> acceleratorButton (accelerator));
         setTouchListenerForButton(retryButton, () -> restartLevel());
 
+        showInitialDialog();
 
         startObstacleCreation();
         startMoveCounter();
         startCoinCreation();
         mediaPlayerg.start();
     }
+
+    private void showInitialDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Предистория")
+                .setMessage("Добро пожаловать в игру! Ты играешь за пилота космического корабля, который должен избегать препятствия и собирать монеты. Тян будет помогать тебе разобраться в геймплее. Удачи!")
+                .setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void showExplanationDialog(String buttonName, String message) {
+        new AlertDialog.Builder(this)
+                .setTitle("Объяснение для " + buttonName)
+                .setMessage(message)
+                .setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        checkAllDialogsShown();
+                    }
+                })
+                .show();
+    }
+
+    private void checkAllDialogsShown() {
+        if (sharedPreferences.getBoolean("acceleratorExplained", false) &&
+                sharedPreferences.getBoolean("pauseExplained", false) &&
+                sharedPreferences.getBoolean("upExplained", false) &&
+                sharedPreferences.getBoolean("downExplained", false)) {
+            allDialogsShown = true;
+        }
+    }
+
+    private void showTyanIntroduction() {
+        ImageView tyanImage = new ImageView(this);
+        tyanImage.setImageResource(R.drawable.tyan);
+        RelativeLayout.LayoutParams tyanParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        tyanParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        tyanParams.topMargin = 100;
+        tyanImage.setLayoutParams(tyanParams);
+        relativeLayout.addView(tyanImage);
+
+        TextView tyanText = new TextView(this);
+        tyanText.setText("Привет! Я Тиан. Мы должны победить Железного Рино. Удачи!");
+        tyanText.setTextColor(Color.WHITE);
+        tyanText.setBackgroundColor(Color.argb(150, 0, 0, 0));
+        tyanText.setPadding(20, 10, 20, 10);
+        RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        textParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        textParams.topMargin = 300;
+        tyanText.setLayoutParams(textParams);
+        relativeLayout.addView(tyanText);
+
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        fadeIn.setDuration(1000);
+        fadeIn.setFillAfter(true);
+        tyanImage.startAnimation(fadeIn);
+        tyanText.startAnimation(fadeIn);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+                fadeOut.setDuration(1000);
+                fadeOut.setFillAfter(true);
+                fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        relativeLayout.removeView(tyanImage);
+                        relativeLayout.removeView(tyanText);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+                tyanImage.startAnimation(fadeOut);
+                tyanText.startAnimation(fadeOut);
+            }
+        }, 5000);
+    }
+
     public void acceleratorButton(View view) {
+        if (!sharedPreferences.getBoolean("acceleratorExplained", false)) {
+            showExplanationDialog("Акселератора", "Эта кнопка ускоряет твой корабль на короткое время. Используй её с умом!");
+            sharedPreferences.edit().putBoolean("acceleratorExplained", true).apply();
+        }
+
         long clickTime = System.currentTimeMillis();
         if (clickTime - lastClickTime >= 10000) { // Разрешаем нажать раз в =10 секунд
             lastClickTime = clickTime;
@@ -139,6 +249,7 @@ public class education extends AppCompatActivity {
             moveCarFast();
         }
     }
+
     private void setTouchListenerForButton(final View button, final Runnable action) {
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -154,6 +265,7 @@ public class education extends AppCompatActivity {
             }
         });
     }
+
     private void updateMoveCounter(int moveCounter) {
         moveCounterTextView.setText(String.valueOf(moveCounter));
         if(moveCarFastc){
@@ -161,7 +273,14 @@ public class education extends AppCompatActivity {
             int newCount = currentCount + 12;
             moveCounterTextView.setText(String.valueOf(newCount));
         }
+
+        // Проверка на достижение 100 очков
+        if (moveCounter >= 100 && !sharedPreferences.getBoolean("tyanIntroduced", false)) {
+            showTyanIntroduction();
+            sharedPreferences.edit().putBoolean("tyanIntroduced", true).apply();
+        }
     }
+
     private void incrementMoveCounter() {
         if (!isGameOver) {
             int currentCount = Integer.parseInt(moveCounterTextView.getText().toString());
@@ -170,6 +289,7 @@ public class education extends AppCompatActivity {
             updateMoveCounter(moveCounter);
         }
     }
+
     private void moveCarFast() {
         if (!isGameOver) {
             initialX = carImage.getX();
@@ -190,12 +310,14 @@ public class education extends AppCompatActivity {
         }
         mediaPlayerac.start();
     }
+
     private void saveLevelCompletion(String level) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(level, true);
         editor.apply();
     }
+
     private void gameWin() {
         isGameOver = true;
         obstacleHandler.removeCallbacks(createObstacleRunnable);
@@ -214,7 +336,23 @@ public class education extends AppCompatActivity {
         mediaPlayerg.stop();
         mediaPlayerw.start();
         saveLevelCompletion("LVLT");
+
+        showFinalDialog();
     }
+
+    private void showFinalDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Поздравляем!")
+                .setMessage("Ты успешно завершил уровень! Удачи в следующих испытаниях!")
+                .setPositiveButton("Спасибо", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -234,9 +372,8 @@ public class education extends AppCompatActivity {
         if (obstacleAnimation != null) {
             obstacleAnimation.stop();
         }
-
-
     }
+
     private Runnable checkCollisionRunnable = new Runnable() {
         @Override
         public void run() {
@@ -246,12 +383,15 @@ public class education extends AppCompatActivity {
             coinGenerationHandler.postDelayed(this, 10);
         }
     };
+
     public void startCollisionCheck() {
         coinGenerationHandler.postDelayed(checkCollisionRunnable, 10);
     }
+
     public void stopCollisionCheck() {
         coinGenerationHandler.removeCallbacks(checkCollisionRunnable);
     }
+
     private void initMediaPlayers() {
         mediaPlayera = MediaPlayer.create(this, R.raw.pauseandbacksound);
         mediaPlayerud = MediaPlayer.create(this, R.raw.upanddownbuttonsound);
@@ -287,7 +427,6 @@ public class education extends AppCompatActivity {
     private void startMoveCounter() {
         moveCounterHandler = new Handler();
         final Runnable moveCounterRunnable = new Runnable() {
-
 
             @Override
             public void run() {
@@ -358,6 +497,7 @@ public class education extends AppCompatActivity {
             mediaPlayere.start();
         }
     }
+
     private void explodeAnimation(ImageView view) {
         AnimationDrawable explodeAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.explosion_animation);
         view.setBackground(explodeAnimation);
@@ -370,7 +510,6 @@ public class education extends AppCompatActivity {
             }
         }, 2000);
     }
-
 
     private boolean isColliding(ImageView imageView1, ImageView imageView2) {
         Rect rect1 = new Rect();
@@ -397,13 +536,18 @@ public class education extends AppCompatActivity {
         mediaPlayerg.stop();
         mediaPlayerf.start();
     }
+
     private void restartLevel() {
         finish();
         startActivity(getIntent());
     }
 
-
     public void pauseButton(View v) {
+        if (!sharedPreferences.getBoolean("pauseExplained", false)) {
+            showExplanationDialog("Паузы", "Эта кнопка приостанавливает игру. Ты сможешь вернуться к игре, когда будешь готов.");
+            sharedPreferences.edit().putBoolean("pauseExplained", true).apply();
+        }
+
         Intent intent = new Intent(this, Pausemenu.class);
         intent.putExtra("levelClass", lvl2.class.getName());
         startActivity(intent);
@@ -412,10 +556,20 @@ public class education extends AppCompatActivity {
     }
 
     public void upButton(View v) {
+        if (!sharedPreferences.getBoolean("upExplained", false)) {
+            showExplanationDialog("Вверх", "Эта кнопка поднимает твой корабль вверх. Используй её, чтобы избегать препятствия.");
+            sharedPreferences.edit().putBoolean("upExplained", true).apply();
+        }
+
         moveCar(-100);
     }
 
     public void downButton(View v) {
+        if (!sharedPreferences.getBoolean("downExplained", false)) {
+            showExplanationDialog("Вниз", "Эта кнопка опускает твой корабль вниз. Используй её, чтобы избегать препятствия.");
+            sharedPreferences.edit().putBoolean("downExplained", true).apply();
+        }
+
         moveCar(100);
     }
 
@@ -429,8 +583,6 @@ public class education extends AppCompatActivity {
     private boolean isWithinBounds(float newY) {
         return newY > 0 && newY < screenHeight - carImage.getHeight();
     }
-
-
 
     private void startCoinCreation() {
         if (!isGameOver) {
@@ -462,6 +614,7 @@ public class education extends AppCompatActivity {
             startCollisionCheck();
         }
     }
+
     private RelativeLayout.LayoutParams createCoinLayoutParams() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -470,6 +623,7 @@ public class education extends AppCompatActivity {
         params.topMargin = getRandomYPosition();
         return params;
     }
+
     private void animateCoin(final ImageView coin) {
         coin.animate()
                 .translationX(-relativeLayout.getWidth() - coin.getWidth())
@@ -500,5 +654,4 @@ public class education extends AppCompatActivity {
     private void updateCoinCounter(int coinCounter) {
         coinCounterTextView.setText(String.valueOf(coinCounter));
     }
-
 }

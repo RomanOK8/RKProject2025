@@ -205,42 +205,4 @@
         app:layout_constraintVertical_bias="0.954"
         app:srcCompat="@drawable/downbutton"
         android:background="@android:color/transparent"/>
-
-    <!-- Комментарии для новичков -->
-    <TextView
-        android:id="@+id/commentPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause the game"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/PauseButtonlvl2"
-        android:visibility="visible"
-        android:fontFamily="@font/pixelae_bold"/>
-
-    <TextView
-        android:id="@+id/commentUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Move up"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/UpButtonlvl1"
-        app:layout_constraintStart_toStartOf="@id/UpButtonlvl1"
-        android:visibility="visible"
-        android:fontFamily="@font/pixelae_bold"/>
-
-    <TextView
-        android:id="@+id/commentDown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Move down"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/downbutton"
-        app:layout_constraintStart_toStartOf="@id/downbutton"
-        android:visibility="visible"
-        android:fontFamily="@font/pixelae_bold"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
