@@ -143,6 +143,12 @@ public class education extends AppCompatActivity {
         startMoveCounter();
         startCoinCreation();
         mediaPlayerg.start();
+
+        // Проверка, была ли уже показана Тиан
+        if (moveCounter >= 100 && !sharedPreferences.getBoolean("tyanIntroduced", false)) {
+            showTyanIntroduction();
+            sharedPreferences.edit().putBoolean("tyanIntroduced", true).apply();
+        }
     }
 
     private void showInitialDialog() {
@@ -549,7 +555,7 @@ public class education extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, Pausemenu.class);
-        intent.putExtra("levelClass", lvl2.class.getName());
+        intent.putExtra("levelClass", education.class.getName());
         startActivity(intent);
         mediaPlayera.start();
         mediaPlayerg.stop();
