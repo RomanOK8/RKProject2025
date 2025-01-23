@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class lvl4 extends AppCompatActivity {//gfgjf
+public class lvl4 extends AppCompatActivity {//gfgjfd
     private AnimationDrawable starshipAnimation;
     private AnimationDrawable coinAnimation;
     private AnimationDrawable obstacleAnimation;
