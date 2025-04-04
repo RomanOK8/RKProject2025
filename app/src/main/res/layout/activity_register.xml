@@ -20,15 +20,6 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:fontFamily="@font/pixelae_bold"/>
-
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:fontFamily="@font/pixelae_bold"/>
-
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"

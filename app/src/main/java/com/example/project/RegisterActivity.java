@@ -13,7 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText usernameEditText, passwordEditText, phoneEditText, emailEditText;
+    private EditText usernameEditText, passwordEditText, emailEditText;
     private Button registerButton;
     private ApiClient apiClient;
 
@@ -26,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        phoneEditText = findViewById(R.id.phone);
         emailEditText = findViewById(R.id.email);
         registerButton = findViewById(R.id.registerButton);
 
@@ -40,37 +39,47 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
-                String phone = phoneEditText.getText().toString().trim();
                 String email = emailEditText.getText().toString().trim();
 
-                if (username.isEmpty() || password.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (!isValidUsername(username)) {
-                    Toast.makeText(RegisterActivity.this, "Username must be 6-12 characters long and contain letters and digits", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,
+                            "Username must be 6-12 chars (letters and digits)",
+                            Toast.LENGTH_SHORT).show();
                 } else if (!isValidPassword(password)) {
-                    Toast.makeText(RegisterActivity.this, "Password must be 6-16 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,
+                            "Password must be 6-16 chars with uppercase, lowercase, digit and special char",
+                            Toast.LENGTH_SHORT).show();
+                } else if (!isValidEmail(email)) {
+                    Toast.makeText(RegisterActivity.this,
+                            "Please enter a valid email address",
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    byte[] salt = PasswordHasher.generateSalt();
-                    String hashedPassword = PasswordHasher.hashPassword(password, salt);
-                    String saltHex = bytesToHex(salt);
-
-                    apiClient.registerUser(username, hashedPassword, saltHex, phone, email, new ApiClient.ApiCallback() {
+                    // Отправляем обычный пароль (сервер сам его хеширует)
+                    apiClient.registerUser(username, password, email, new ApiClient.ApiCallback() {
                         @Override
                         public void onSuccess(JSONObject response) {
-                            Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
+                            runOnUiThread(() -> {
+                                Toast.makeText(RegisterActivity.this,
+                                        "Registration successful",
+                                        Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                finish();
+                            });
                         }
 
                         @Override
                         public void onError(VolleyError error) {
-                            if (error != null && error.networkResponse != null) {
-                                String errorMessage = new String(error.networkResponse.data);
-                                Toast.makeText(RegisterActivity.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                            }
+                            runOnUiThread(() -> {
+                                String errorMessage = "Registration failed";
+                                if (error != null && error.networkResponse != null && error.networkResponse.data != null) {
+                                    errorMessage = new String(error.networkResponse.data);
+                                }
+                                Toast.makeText(RegisterActivity.this,
+                                        errorMessage,
+                                        Toast.LENGTH_SHORT).show();
+                            });
                         }
                     });
                 }
@@ -92,11 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,16}$");
     }
 
-    private static String bytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte b : bytes) {
-            result.append(String.format("%02x", b));
-        }
-        return result.toString();
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
