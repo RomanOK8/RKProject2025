@@ -11,6 +11,18 @@ import android.widget.TextView;
 
 public class WarningFragment extends DialogFragment {
 
+    public interface WarningListener {
+        void onContinue();
+        void onContinueAsGuest();
+        void onCancel();
+    }
+
+    private WarningListener listener;
+
+    public void setWarningListener(WarningListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_warning, container, false);
@@ -21,22 +33,30 @@ public class WarningFragment extends DialogFragment {
 
         warningText.setText("Warning: Online play will not be available. Continue?");
 
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainMenu.class);
-                startActivity(intent);
-                getActivity().finish();
+        yesButton.setOnClickListener(v -> {
+            // Переход в MainMenu при нажатии Yes
+            startActivity(new Intent(getActivity(), MainMenu.class));
+            dismiss();
+
+            // Если нужно также уведомить listener
+            if (listener != null) {
+                listener.onContinueAsGuest();
             }
         });
 
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
+        noButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCancel();
             }
+            dismiss();
         });
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        listener = null;
     }
 }
